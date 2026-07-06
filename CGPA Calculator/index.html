@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <h1>CGPA Planner</h1>
+            </div>
+            <button id="reset-history-btn" class="btn-danger" aria-label="Clear all completed CGPA history data">Clear All CGPA Data</button>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <div class="dashboard-grid">
+            <!-- Left Side: Current Input and History -->
+            <section class="semesters-section" aria-label="Semester Input and History">
+                <!-- Grading System Selector Card -->
+                <div class="card grading-system-card">
+                    <div class="input-group" style="margin-bottom: 0.75rem;">
+                        <label for="grading-system-select" style="font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; display: block;">Select Grading System</label>
+                        <select id="grading-system-select" aria-describedby="mapping-display">
+                            <option value="standard">Standard Indian 10-Point System (O, A+, A...)</option>
+                            <option value="double-letter">Double-Letter College Grade System (AA, AB, BB...)</option>
+                        </select>
+                    </div>
+                    <div class="mapping-display" id="mapping-display" aria-label="Grade point mappings">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Current Active Semester Input Form -->
+                <div class="card active-semester-card">
+                    <div class="semester-header-input">
+                        <div class="input-group">
+                            <label for="current-semester-name">Semester Name</label>
+                            <input type="text" id="current-semester-name" value="Semester 1" placeholder="e.g. Semester 1" required>
+                            <span id="error-semester-name" class="error-text hidden" role="alert"></span>
+                        </div>
+                    </div>
+
+                    <div id="current-subjects-list" class="subjects-list">
+                        <!-- Rendered dynamically -->
+                    </div>
+
+                    <div class="active-semester-actions">
+                        <button id="add-subject-btn" class="btn-primary" aria-label="Add subject row">+ Add Subject</button>
+                        <button id="reset-semester-btn" class="btn-secondary" aria-label="Reset current active semester inputs">Reset Semester</button>
+                        <button id="save-semester-btn" class="btn-primary" aria-label="Save this semester to CGPA history">Add Current Semester to CGPA</button>
+                    </div>
+                </div>
+
+                <!-- Completed Semesters History List -->
+                <div class="card history-card">
+                    <h3 class="card-title">Completed Semesters History</h3>
+                    <div id="history-list" class="history-list">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Side: Cumulative Summary & Simulator -->
+            <aside class="sidebar-section" aria-label="Cumulative Summary and Simulations">
+                <!-- Cumulative Summary Card -->
+                <div class="card summary-card">
+                    <h3 class="card-title">Cumulative Summary</h3>
+                    <div class="summary-display">
+                        <div class="cgpa-circle">
+                            <span id="cgpa-value" class="cgpa-num" aria-live="polite">0.00</span>
+                            <span class="cgpa-label">Current CGPA</span>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value" id="total-credits" aria-live="polite">0</span>
+                                <span class="stat-label">Completed Credits</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="total-semesters" aria-live="polite">0</span>
+                                <span class="stat-label">Semesters Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Future-Semester CGPA Planner -->
+                <div class="card simulator-card">
+                    <h3 class="card-title">"What-If" Future Planner</h3>
+                    <p class="instruction-text" style="margin-bottom: 1.25rem;">Enter your current scores and plan future semesters to project your graduation CGPA.</p>
+                    
+                    <!-- Current State Sandbox Inputs -->
+                    <div class="simulator-base-inputs" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
+                        <div class="input-group">
+                            <label for="sim-current-cgpa">Current CGPA</label>
+                            <input type="number" id="sim-current-cgpa" min="0" max="10" step="0.01" value="0.00">
+                            <span id="error-sim-current-cgpa" class="error-text hidden" role="alert"></span>
+                        </div>
+                        <div class="input-group">
+                            <label for="sim-completed-credits">Completed Credits</label>
+                            <input type="number" id="sim-completed-credits" min="0" max="300" step="0.5" value="0.0">
+                            <span id="error-sim-completed-credits" class="error-text hidden" role="alert"></span>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 1.5rem;">
+                        <label for="sim-target-cgpa">Optional Target CGPA</label>
+                        <input type="number" id="sim-target-cgpa" min="0" max="10" step="0.01" placeholder="e.g. 8.5">
+                        <span id="error-sim-target-cgpa" class="error-text hidden" role="alert"></span>
+                    </div>
+
+                    <!-- Future Semesters Rows List -->
+                    <div style="border-top: 1px solid #e2e8f0; padding-top: 1rem; margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">Future Semesters</h4>
+                        <div id="future-semesters-list" class="future-semesters-list">
+                            <!-- Dynamic rows -->
+                        </div>
+                        <button id="add-future-sem-btn" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" aria-label="Add a future semester input row">+ Add Future Semester</button>
+                    </div>
+
+                    <!-- Simulation Result Outputs -->
+                    <div class="result-box" style="margin-top: 1.5rem; text-align: left;">
+                        <div style="margin-bottom: 0.5rem;">
+                            <span class="result-label">Graduation Credits</span>
+                            <span id="graduation-credits-val" style="font-weight: 700; color: var(--color-text);">0.0</span>
+                        </div>
+                        <div style="margin-bottom: 0.75rem;">
+                            <span class="result-label">Projected CGPA</span>
+                            <p id="projected-message" style="font-size: 0.9rem; font-weight: 500; margin-top: 0.2rem; color: var(--color-primary);">If you achieve the entered grades, your projected CGPA at graduation will be --.</p>
+                        </div>
+                        <div id="target-solver-result-container" class="hidden" style="border-top: 1px dashed var(--color-border); padding-top: 0.75rem; margin-top: 0.75rem;">
+                            <span class="result-label">Target Solver Analysis</span>
+                            <p id="target-solver-message" style="font-size: 0.85rem; font-weight: 500; margin-top: 0.2rem;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How CGPA Is Calculated Card -->
+                <div class="card explanation-card">
+                    <h3 class="card-title">How GPA and CGPA Are Calculated</h3>
+                    <div class="explanation-content" style="font-size: 0.85rem; color: var(--color-text);">
+                        <section style="margin-bottom: 0.75rem;">
+                            <strong style="display: block; margin-bottom: 0.2rem;">Semester GPA:</strong>
+                            <div class="formula-block" style="background: #fdfdfb; border: 1px solid var(--color-border); padding: 0.4rem; border-radius: var(--radius); overflow-x: auto; font-family: monospace; white-space: nowrap; margin-bottom: 0.5rem;">
+                                GPA = &Sigma; (Credits &times; Grade Points) &divide; &Sigma; Credits
+                            </div>
+                        </section>
+                        
+                        <section style="margin-bottom: 0.75rem;">
+                            <strong style="display: block; margin-bottom: 0.2rem;">Running CGPA:</strong>
+                            <div class="formula-block" style="background: #fdfdfb; border: 1px solid var(--color-border); padding: 0.4rem; border-radius: var(--radius); overflow-x: auto; font-family: monospace; white-space: nowrap; margin-bottom: 0.5rem;">
+                                CGPA = &Sigma; (Semester GPA &times; Credits) &divide; &Sigma; Credits
+                            </div>
+                        </section>
+
+                        <section style="margin-bottom: 1rem;">
+                            <strong style="display: block; margin-bottom: 0.2rem;">Projected Final CGPA:</strong>
+                            <div class="formula-block" style="background: #fdfdfb; border: 1px solid var(--color-border); padding: 0.4rem; border-radius: var(--radius); overflow-x: auto; font-family: monospace; white-space: pre-wrap; word-break: break-all; margin-bottom: 0.5rem;">
+                                Projected CGPA = (Current CGPA &times; Completed Credits + &Sigma; (Expected Future GPA &times; Future Semester Credits)) &divide; (Completed Credits + &Sigma; Future Semester Credits)
+                            </div>
+                        </section>
+
+                        <section style="border-top: 1px dashed var(--color-border); padding-top: 0.75rem;">
+                            <strong style="display: block; margin-bottom: 0.25rem;">Calculation Example:</strong>
+                            <p style="margin-bottom: 0.4rem; color: var(--color-text-muted);">If Sem 1 has 20 credits with 8.50 GPA, and Sem 2 has 22 credits with 9.00 GPA:</p>
+                            <div style="font-family: monospace; line-height: 1.4; padding-left: 0.5rem; border-left: 2px solid var(--color-accent); color: var(--color-text-muted);">
+                                CGPA = ((8.50 &times; 20) + (9.00 &times; 22)) &divide; (20 + 22)<br>
+                                CGPA = 368 &divide; 42<br>
+                                CGPA = 8.76
+                            </div>
+                        </section>
+
+                        <p style="margin-top: 0.75rem; font-style: italic; color: var(--color-text-muted); font-size: 0.8rem; line-height: 1.3;">
+                            “CGPA is calculated using credits, so semesters with more credits have a greater effect on the final CGPA.”
+                        </p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Main JS Application script file -->
+    <script src="app.js"></script>
+</body>
+
+</html>

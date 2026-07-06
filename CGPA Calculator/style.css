@@ -1,0 +1,474 @@
+:root {
+    --color-bg: #f6f5f2;
+    /* Warm off-white page background */
+    --color-surface: #ffffff;
+    /* Card background */
+    --color-border: #d7d7d2;
+    /* Muted soft gray borders */
+    --color-text: #2f2f2f;
+    /* Main dark charcoal text */
+    --color-text-muted: #666666;
+    /* Muted gray for labels and hints */
+
+    --color-accent: #006666;
+    /* Muted Deep Teal university accent color */
+    --color-accent-hover: #004d4d;
+
+    --color-danger: #c62828;
+    /* Muted brick red for errors and deletions */
+    --color-danger-hover: #b71c1c;
+    --color-danger-light: #ffebee;
+
+    --color-success: #2e7d32;
+    /* Muted green for success states */
+
+    --radius: 4px;
+    /* Rectangular, standard portal corners */
+    --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.45;
+    padding-bottom: 3rem;
+}
+
+/* Header styling in simple college portal layout */
+.app-header {
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+    padding: 1rem 1.5rem;
+}
+
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: -0.2px;
+}
+
+/* Main Container max-width */
+.app-main {
+    max-width: 1000px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1.3fr 1fr;
+    }
+}
+
+/* Cards as plain portal boxes */
+.card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1.5px solid var(--color-border);
+    color: var(--color-text);
+}
+
+/* Grading System Card */
+.grading-system-card {
+    border-top: 3px solid var(--color-accent);
+}
+
+.mapping-display {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--color-border);
+}
+
+.mapping-item {
+    background-color: #fcfcf9;
+    padding: 0.15rem 0.35rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+}
+
+/* Active Semester panel */
+.active-semester-card {
+    border-left: 3px solid var(--color-accent);
+}
+
+.semester-header-input {
+    margin-bottom: 1rem;
+    max-width: 260px;
+}
+
+.active-semester-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Completed Semesters History */
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    margin-bottom: 0.4rem;
+    background-color: #fdfdfb;
+}
+
+.history-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.history-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.history-stats {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
+
+.history-stats span {
+    margin-right: 0.75rem;
+}
+
+@media (max-width: 576px) {
+    .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* Future Semesters Planner list */
+.future-semesters-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.future-sem-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr auto;
+    gap: 0.4rem;
+    align-items: start;
+}
+
+@media (max-width: 576px) {
+    .future-sem-row {
+        grid-template-columns: 1fr;
+        border: 1px solid var(--color-border);
+        padding: 0.6rem;
+        border-radius: var(--radius);
+    }
+}
+
+/* Form validation error display */
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.error-text {
+    color: var(--color-danger);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.15rem;
+    display: block;
+}
+
+.input-error {
+    border-color: var(--color-danger) !important;
+    background-color: var(--color-danger-light) !important;
+}
+
+/* Subject Grid inputs */
+.subject-row {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr auto;
+    gap: 0.5rem;
+    align-items: start;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 576px) {
+    .subject-row {
+        grid-template-columns: 1fr;
+        border: 1px solid var(--color-border);
+        padding: 0.6rem;
+        border-radius: var(--radius);
+    }
+}
+
+/* Input elements as simple rectangular boxes */
+input,
+select {
+    font-family: inherit;
+    font-size: 0.85rem;
+    padding: 0.45rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    outline: none;
+    width: 100%;
+    background-color: #fdfdfb;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--color-accent);
+}
+
+/* Plain results summaries */
+.summary-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.cgpa-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border: 3px solid var(--color-accent);
+    border-radius: 50%;
+}
+
+.cgpa-num {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.cgpa-label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-top: 0.2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 0.75rem;
+    text-align: center;
+    border-top: 1.5px solid var(--color-border);
+    padding-top: 0.75rem;
+}
+
+.stat-value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+/* Simulator results block */
+.result-box {
+    margin-top: 1.25rem;
+    padding: 0.85rem;
+    background-color: #fcfcf9;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    text-align: left;
+}
+
+.result-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.solver-message {
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+}
+
+.status-danger {
+    color: var(--color-danger);
+    font-weight: 600;
+}
+
+.status-success {
+    color: var(--color-success);
+    font-weight: 600;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: 1.5rem;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+}
+
+.instruction-text {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.input-group {
+    margin-bottom: 0.75rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    color: var(--color-text);
+}
+
+/* BUTTON STYLING - Standard College Portal Styles */
+button {
+    font-family: var(--font-stack);
+    font-size: 0.85rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    padding: 0.5rem 0.9rem;
+    cursor: pointer;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Primary actions using deep teal */
+.btn-primary {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+}
+
+/* Secondary actions with white bg and gray border */
+.btn-secondary {
+    background-color: #ffffff;
+    color: var(--color-text);
+    border-color: var(--color-border);
+    font-weight: 500;
+}
+
+.btn-secondary:hover {
+    background-color: #f6f5f2;
+    border-color: #b0b0a8;
+}
+
+/* Outlined brick-red remove button */
+.btn-remove {
+    background-color: #ffffff;
+    color: var(--color-danger);
+    border-color: #ffcdd2;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.8rem;
+}
+
+.btn-remove:hover {
+    background-color: var(--color-danger-light);
+    border-color: var(--color-danger);
+}
+
+/* Destructive action button using brick red */
+.btn-danger {
+    background-color: var(--color-danger);
+    color: #ffffff;
+    border-color: var(--color-danger);
+    font-weight: 600;
+}
+
+.btn-danger:hover {
+    background-color: var(--color-danger-hover);
+    border-color: var(--color-danger-hover);
+}
+
+/* Mobile responsive buttons */
+@media (max-width: 600px) {
+    button {
+        width: 100%;
+    }
+
+    .btn-remove {
+        width: auto;
+    }
+}
+
+/* How CGPA Is Calculated Panel Styling */
+.explanation-card {
+    border-top: 3px solid var(--color-border);
+}
+
+.formula-block {
+    font-size: 0.85rem;
+    line-height: 1.35;
+    background-color: #fdfdfb;
+    border: 1px solid var(--color-border);
+    padding: 0.4rem;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-family: monospace;
+}
