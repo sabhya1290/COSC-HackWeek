@@ -1,0 +1,491 @@
+/* ============================================================
+   Rock Paper Scissors — style.css
+   Simple, warm, human-made student web game UI.
+   No gradients, glassmorphism, neon, or glow effects.
+   ============================================================ */
+
+:root {
+    /* Colour tokens */
+    --bg:           #f7f3ea;   /* Warm beige page background       */
+    --surface:      #ffffff;   /* Panel / card fill                */
+    --border:       #dcd8ce;   /* Warm-beige thin borders          */
+    --border-dark:  #b5b0a4;   /* Slightly darker separator        */
+
+    --text:         #2f2f2f;   /* Dark charcoal main text          */
+    --text-muted:   #6b6560;   /* Muted secondary / label text     */
+
+    --accent:       #5c6e1e;   /* Muted olive-green accent         */
+    --accent-light: #eef2db;   /* Very light accent tint           */
+    --accent-hover: #47560f;   /* Darker on hover                  */
+
+    --win:          #2e6b30;   /* Dark muted green  – You win      */
+    --win-bg:       #edf6ed;
+    --lose:         #b03030;   /* Brick red         – Computer     */
+    --lose-bg:      #fdf0f0;
+    --draw:         #7a5c00;   /* Warm amber-brown  – Draw         */
+    --draw-bg:      #fdf8e8;
+
+    --danger:       #b03030;
+    --danger-light: #fdeaea;
+    --danger-hover: #8f1e1e;
+
+    /* Shape & type */
+    --radius:  5px;
+    --radius-sm: 3px;
+    --font: Arial, "Segoe UI", system-ui, sans-serif;
+
+    /* Spacing scale */
+    --gap:    0.9rem;
+    --gap-lg: 1.4rem;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.5;
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 1.25rem 1rem 3rem;
+}
+
+/* ── Page wrapper ── */
+.page-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+/* ════════════════════════════════
+   HEADER
+   ════════════════════════════════ */
+.game-header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.85rem;
+    margin-bottom: var(--gap-lg);
+}
+
+.game-header h1 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+/* ════════════════════════════════
+   SCOREBOARD  – single row bar
+   ════════════════════════════════ */
+.scoreboard {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+    margin-bottom: var(--gap-lg);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.score-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.65rem 0.5rem;
+    border-right: 1px solid var(--border);
+}
+
+.score-item:last-child {
+    border-right: none;
+}
+
+.score-num {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+}
+
+.score-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.18rem;
+}
+
+/* ════════════════════════════════
+   CHOICE BUTTONS
+   ════════════════════════════════ */
+.choices-section {
+    margin-bottom: var(--gap-lg);
+}
+
+.choices-prompt {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.6rem;
+}
+
+.choices {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.choice-btn {
+    flex: 1 1 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.85rem 0.75rem 0.8rem;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: var(--font);
+    transition: border-color 0.12s, background-color 0.12s;
+    /* subtle paper texture via shadow */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.choice-btn:hover {
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+}
+
+.choice-btn:active {
+    background-color: #e4eba8;
+    border-color: var(--accent-hover);
+}
+
+.choice-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Selected state after a click */
+.choice-btn.selected {
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+    box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.choice-emoji {
+    font-size: 2rem;
+    line-height: 1;
+    display: block;
+}
+
+.choice-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.2px;
+}
+
+/* ════════════════════════════════
+   RESULT PANEL
+   ════════════════════════════════ */
+.result-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem 0.9rem;
+    margin-bottom: var(--gap-lg);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.result-choices {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
+}
+
+.result-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 88px;
+    /* light framed panel */
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.75rem;
+    background: var(--bg);
+    flex: 1;
+    max-width: 160px;
+}
+
+.result-emoji {
+    font-size: 2rem;
+    line-height: 1;
+    display: block;
+}
+
+/* Brief pop animation when a new result is shown */
+.result-emoji.pop {
+    animation: emoji-pop 0.2s ease;
+}
+
+@keyframes emoji-pop {
+    0%   { transform: scale(0.7); }
+    65%  { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+.result-side-label {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.result-choice-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.vs-divider {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* Result message */
+.result-message {
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.2rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+}
+
+/* Colour + subtle tinted background for each outcome */
+.result-message.win {
+    color: var(--win);
+    background: var(--win-bg);
+}
+.result-message.lose {
+    color: var(--lose);
+    background: var(--lose-bg);
+}
+.result-message.draw {
+    color: var(--draw);
+    background: var(--draw-bg);
+}
+.result-message.idle {
+    color: var(--text-muted);
+    font-weight: 400;
+    background: transparent;
+}
+
+.round-count {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* ════════════════════════════════
+   ROUND HISTORY
+   ════════════════════════════════ */
+.history-section {
+    margin-bottom: var(--gap-lg);
+}
+
+.history-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.55px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.4rem;
+}
+
+.history-list {
+    list-style: none;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text);
+    padding: 0.32rem 0;
+    border-bottom: 1px dotted var(--border-dark);
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-outcome {
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.history-outcome.win  { color: var(--win); }
+.history-outcome.lose { color: var(--lose); }
+.history-outcome.draw { color: var(--draw); }
+
+.history-empty {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 0.3rem 0;
+}
+
+/* ════════════════════════════════
+   RESET BUTTON
+   ════════════════════════════════ */
+.reset-wrap {
+    text-align: left;
+}
+
+.btn-reset {
+    font-family: var(--font);
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: var(--surface);
+    color: var(--danger);
+    border: 1.5px solid #e0b0b0;
+    border-radius: var(--radius);
+    padding: 0.45rem 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.12s, border-color 0.12s;
+}
+
+.btn-reset:hover {
+    background: var(--danger-light);
+    border-color: var(--danger);
+}
+
+.btn-reset:active {
+    background: #fad0d0;
+}
+
+.btn-reset:focus-visible {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
+}
+
+/* ════════════════════════════════
+   WIDE LAYOUT  (≥ 600 px)
+   Two-column: choices + result  |  scoreboard stacked on right
+   ════════════════════════════════ */
+@media (min-width: 600px) {
+    .page-wrap {
+        display: grid;
+        grid-template-columns: 1fr 220px;
+        grid-template-rows: auto;
+        column-gap: 1.25rem;
+        align-items: start;
+    }
+
+    /* Header spans both columns */
+    .game-header {
+        grid-column: 1 / -1;
+    }
+
+    /* Left column */
+    .choices-section  { grid-column: 1; }
+    .result-section   { grid-column: 1; }
+    .history-section  { grid-column: 1; }
+    .reset-wrap       { grid-column: 1; }
+
+    /* Right column: scoreboard stacked vertically */
+    .scoreboard {
+        grid-column: 2;
+        grid-row: 2 / 6;
+        flex-direction: column;
+        align-self: start;
+        position: sticky;
+        top: 1rem;
+    }
+
+    .score-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 0.85rem 1rem;
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .score-item:last-child {
+        border-bottom: none;
+    }
+
+    .score-num {
+        font-size: 1.5rem;
+    }
+
+    .score-label {
+        font-size: 0.75rem;
+        margin-top: 0;
+        align-self: center;
+    }
+
+    /* Wider result side panels */
+    .result-side {
+        max-width: 200px;
+    }
+}
+
+/* ════════════════════════════════
+   NARROW  (≤ 380 px)
+   Tighten choice buttons for very small screens
+   ════════════════════════════════ */
+@media (max-width: 380px) {
+    .choice-btn {
+        flex: 1 1 80px;
+        padding: 0.7rem 0.4rem;
+    }
+
+    .choice-emoji {
+        font-size: 1.7rem;
+    }
+
+    .choice-name {
+        font-size: 0.76rem;
+    }
+
+    .result-side {
+        min-width: 70px;
+        padding: 0.4rem 0.5rem;
+    }
+
+    .result-emoji {
+        font-size: 1.65rem;
+    }
+
+    .game-header h1 {
+        font-size: 1.3rem;
+    }
+}
