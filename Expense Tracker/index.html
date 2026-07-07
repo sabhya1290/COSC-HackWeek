@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Expense Tracker — Track your campus spending, one expense at a time.">
+  <title>Expense Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Mobile overlay -->
+  <div id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- ──────── Sidebar ──────── -->
+  <aside id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-badge">₹</div>
+      <div>
+        <div class="logo-name">Expense Tracker</div>
+      </div>
+    </div>
+
+    <nav id="sidenav">
+      <button class="nav-btn active" data-page="dashboard">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+        Dashboard
+      </button>
+      <button class="nav-btn" data-page="expenses">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <line x1="10" y1="9" x2="8" y2="9" />
+        </svg>
+        Expenses
+      </button>
+      <button class="nav-btn" data-page="analytics">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+        Analytics
+      </button>
+      <button class="nav-btn" data-page="budget">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v4l3 3" />
+        </svg>
+        Budget
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-av">S</div>
+      <div>
+        <div class="user-name">Student</div>
+        <div class="user-college">COSC Hackweek 2026</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ──────── Main ──────── -->
+  <div id="main-wrap">
+
+    <header id="topbar">
+      <button id="hamburger" onclick="toggleSidebar()" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-info">
+        <h1 id="pg-title">Dashboard</h1>
+        <p id="pg-sub">Welcome back! Here's your campus spending overview.</p>
+      </div>
+      <div class="topbar-av">S</div>
+    </header>
+
+    <main id="content">
+
+      <!-- ── Dashboard ── -->
+      <section id="pg-dashboard" class="pg active">
+        <div class="grid-4" id="dash-cards"></div>
+        <div id="dash-insight"></div>
+        <div class="grid-3-1">
+          <div id="dash-budget-prog" class="card"></div>
+          <div id="dash-top-cat" class="card"></div>
+        </div>
+        <div id="dash-snapshot" class="card"></div>
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="ctitle">This Month by Category</h3>
+            <div class="chart-box"><canvas id="ch-pie-d"></canvas></div>
+          </div>
+          <div class="card">
+            <h3 class="ctitle">Spending Trend (6 Months)</h3>
+            <div class="chart-box"><canvas id="ch-line-d"></canvas></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="ctitle">All-Time Category Breakdown</h3>
+          <div class="chart-box chart-tall"><canvas id="ch-bar-d"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">
+            <h3 class="ctitle mb0">Recent Expenses</h3>
+            <button class="btn primary" onclick="openAddModal()">+ Quick Add</button>
+          </div>
+          <div id="dash-recent"></div>
+        </div>
+      </section>
+
+      <!-- ── Expenses ── -->
+      <section id="pg-expenses" class="pg">
+        <div class="card">
+          <div class="filters">
+            <label class="sbox">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input type="text" id="si-search" placeholder="Search expenses…" oninput="renderExpenses()"
+                autocomplete="off">
+            </label>
+            <select id="si-cat" onchange="renderExpenses()">
+              <option value="">All Categories</option>
+            </select>
+            <select id="si-month" onchange="renderExpenses()">
+              <option value="">All Months</option>
+            </select>
+            <select id="si-sort" onchange="renderExpenses()">
+              <option value="latest">Latest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="highest">Highest Amount</option>
+              <option value="lowest">Lowest Amount</option>
+            </select>
+            <button class="btn primary" onclick="openAddModal()">+ Add Expense</button>
+          </div>
+          <div id="exp-strip" class="strip"></div>
+          <!-- Desktop table -->
+          <div class="tscroll" id="exp-table-wrap">
+            <table class="dtable">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th class="r">Amount</th>
+                  <th class="r">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="exp-tbody"></tbody>
+            </table>
+          </div>
+          <!-- Mobile card list -->
+          <div id="exp-mcards" class="mcards"></div>
+          <!-- Empty state -->
+          <div id="exp-empty" class="empty-state" style="display:none">
+            <div class="empty-ico">📭</div>
+            <strong>No expenses found</strong>
+            <p>Try adjusting your filters or add a new expense.</p>
+            <button class="btn primary" onclick="openAddModal()">+ Add Expense</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Analytics ── -->
+      <section id="pg-analytics" class="pg">
+        <div class="grid-4" id="an-cards"></div>
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="ctitle">Category Distribution</h3>
+            <div class="chart-box"><canvas id="ch-pie-a"></canvas></div>
+          </div>
+          <div class="card">
+            <h3 class="ctitle">Category Totals (All-Time)</h3>
+            <div class="chart-box"><canvas id="ch-bar-a"></canvas></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="ctitle">Monthly Spending Trend (Last 6 Months)</h3>
+          <div class="chart-box"><canvas id="ch-line-a"></canvas></div>
+        </div>
+        <div class="card">
+          <h3 class="ctitle">💡 Spending Insights</h3>
+          <div id="insights-list"></div>
+        </div>
+      </section>
+
+      <!-- ── Budget ── -->
+      <section id="pg-budget" class="pg">
+        <div class="card" id="bud-card"></div>
+        <div class="card">
+          <h3 class="ctitle">Category Budget Limits</h3>
+          <p class="csub">Set optional spending limits per category. A warning appears when you hit 80%.</p>
+          <div id="cat-limits"></div>
+        </div>
+        <div class="card">
+          <h3 class="ctitle">Reset Demo Data</h3>
+          <p class="csub">Restore the original student expense examples. All current expenses will be replaced.</p>
+          <button class="btn outline-danger" onclick="toggleResetConfirm()">↺ Reset to Demo Data</button>
+          <div id="reset-confirm" class="reset-confirm" style="display:none">
+            <div class="warn-box">⚠ This will replace ALL your expenses. This cannot be undone.</div>
+            <div class="btn-row mt12">
+              <button class="btn secondary" onclick="toggleResetConfirm()">Cancel</button>
+              <button class="btn danger" onclick="doResetDemo()">Yes, Reset</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ──── Add / Edit Expense Modal ──── -->
+  <div id="modal-add" class="moverlay" style="display:none" onclick="overlayClose(event,'modal-add')">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-ttl">
+      <div class="mhd">
+        <h2 id="modal-ttl">Add Expense</h2>
+        <button class="mclose" onclick="closeModal('modal-add')" aria-label="Close">✕</button>
+      </div>
+      <form id="exp-form" onsubmit="handleSubmit(event)" novalidate>
+        <div class="fgroup">
+          <label for="f-title">Title *</label>
+          <input type="text" id="f-title" placeholder="e.g. Canteen Lunch" autocomplete="off">
+          <div class="ferr" id="e-title"></div>
+        </div>
+        <div class="fgroup">
+          <label for="f-amount">Amount (₹) *</label>
+          <input type="number" id="f-amount" placeholder="0" min="0.01" step="0.01">
+          <div class="ferr" id="e-amount"></div>
+        </div>
+        <div class="fgroup">
+          <label for="f-cat">Category *</label>
+          <select id="f-cat">
+            <option value="">Select a category</option>
+          </select>
+          <div class="ferr" id="e-cat"></div>
+        </div>
+        <div class="fgroup">
+          <label for="f-date">Date *</label>
+          <input type="date" id="f-date">
+          <div class="ferr" id="e-date"></div>
+        </div>
+        <div class="fgroup">
+          <label for="f-note">Note <span class="opt">(optional)</span></label>
+          <textarea id="f-note" rows="2" placeholder="Add a note…"></textarea>
+        </div>
+        <input type="hidden" id="f-id">
+        <div class="btn-row mt16">
+          <button type="button" class="btn secondary" onclick="closeModal('modal-add')">Cancel</button>
+          <button type="submit" class="btn primary" id="form-btn">Add Expense</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ──── Delete Confirmation Modal ──── -->
+  <div id="modal-del" class="moverlay" style="display:none" onclick="overlayClose(event,'modal-del')">
+    <div class="modal modal-sm" role="dialog" aria-modal="true">
+      <div class="mhd del-header">
+        <div class="del-ico">⚠</div>
+        <button class="mclose" onclick="closeModal('modal-del')" aria-label="Close">✕</button>
+      </div>
+      <h3>Delete Expense?</h3>
+      <p class="msubt">This action cannot be undone.</p>
+      <div id="del-preview" class="del-prev"></div>
+      <div class="btn-row mt16">
+        <button class="btn secondary" onclick="closeModal('modal-del')">Cancel</button>
+        <button class="btn danger" onclick="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──── Toast Notifications ──── -->
+  <div id="toasts"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
