@@ -9,7 +9,7 @@ This repository contains the projects developed during the hackathon.
 ## 📂 Featured Projects
 
 ### 💳 Expense Trackers
-1. **[Vanilla JS Expense Tracker](file:///d:/project/COSC%20Hackweek/Expense%20Tracker/README.md)**
+ **[Vanilla JS Expense Tracker](file:///d:/project/COSC%20Hackweek/Expense%20Tracker/README.md)**
    - **Stack**: Pure HTML5, CSS3, Vanilla JS (ES6+), and Chart.js.
    - **Key Features**: Offline first, LocalStorage sync, custom progress bars, visual charts, and student-focused seed data.
    - **No setup required**: Simply double-click `index.html` to run!
@@ -17,9 +17,17 @@ This repository contains the projects developed during the hackathon.
 ---
 
 ### 📇 Digital Business Card Generator
-1. **[Digital Business Card Generator](file:///d:/project/COSC%20Hackweek/Digital%20Business%20Card%20Generator/README.md)**
+ **[Digital Business Card Generator](file:///d:/project/COSC%20Hackweek/Digital%20Business%20Card%20Generator/README.md)**
    - **Stack**: Pure HTML5, CSS3, and Vanilla JS (ES6+), with html2canvas.
    - **Key Features**: 4 premium card templates, local storage persistence, interactive custom accent color picker, dynamic profile initials, high-resolution PNG download, and responsive print/PDF styles.
+   - **No setup required**: Simply double-click `index.html` to run!
+
+---
+
+### 🔥 Habit Streak Tracker — Streakly
+ **[Streakly](file:///d:/project/COSC%20Hackweek/Habit%20Streak%20Tracker/README.md)**
+   - **Stack**: Pure HTML5, CSS3, and Vanilla JS (ES6+).
+   - **Key Features**: 5-section dashboard, 30-day calendar grid, streak calculation, dark mode, export/import JSON, and responsive mobile layout with LocalStorage persistence.
    - **No setup required**: Simply double-click `index.html` to run!
 
 ---

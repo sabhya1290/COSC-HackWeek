@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Streakly — Habit Streak Tracker</title>
+  <meta name="description" content="Track your daily habits, build streaks, and unlock your best self with Streakly." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ══════ SIDEBAR ═══ -->
+  <nav class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🔥</span>
+      <span class="brand-name">Streakly</span>
+    </div>
+
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">✕</button>
+
+    <ul class="nav-links" role="list">
+      <li>
+        <a href="#" class="nav-link active" data-section="dashboard" aria-current="page">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link" data-section="habits">
+          <span class="nav-icon">📋</span> My Habits
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link" data-section="calendar">
+          <span class="nav-icon">📅</span> Calendar
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link" data-section="insights">
+          <span class="nav-icon">📊</span> Insights
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link" data-section="settings">
+          <span class="nav-icon">⚙️</span> Settings
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <p class="sidebar-date" id="sidebarDate"></p>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ OVERLAY ═══ -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════ MAIN ════════ -->
+  <div class="main-wrapper">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-title">
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <button class="btn btn-primary btn-sm" id="topbarAddBtn" aria-label="Add new habit">
+        + Add Habit
+      </button>
+    </header>
+
+    <!-- ─── DASHBOARD ──────────────────────────────────────── -->
+    <section class="section active" id="section-dashboard" aria-labelledby="pageTitle">
+
+      <!-- Summary Cards -->
+      <div class="summary-grid">
+        <div class="summary-card" role="region" aria-label="Total Habits">
+          <div class="summary-icon" style="background:#e0e7ff">📋</div>
+          <div class="summary-info">
+            <span class="summary-value" id="totalHabits">0</span>
+            <span class="summary-label">Total Habits</span>
+          </div>
+        </div>
+        <div class="summary-card" role="region" aria-label="Completed Today">
+          <div class="summary-icon" style="background:#d1fae5">✅</div>
+          <div class="summary-info">
+            <span class="summary-value" id="completedToday">0</span>
+            <span class="summary-label">Completed Today</span>
+          </div>
+        </div>
+        <div class="summary-card" role="region" aria-label="Best Streak">
+          <div class="summary-icon" style="background:#fff3cd">🔥</div>
+          <div class="summary-info">
+            <span class="summary-value" id="bestStreak">0</span>
+            <span class="summary-label">Best Streak</span>
+          </div>
+        </div>
+        <div class="summary-card" role="region" aria-label="Completion Rate">
+          <div class="summary-icon" style="background:#ffe4e6">🎯</div>
+          <div class="summary-info">
+            <span class="summary-value" id="completionRate">0%</span>
+            <span class="summary-label">Completion Rate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Motivational Banner -->
+      <div class="motivation-banner" id="motivationBanner" role="status" aria-live="polite">
+        <span class="motivation-emoji" id="motivationEmoji">🌟</span>
+        <p id="motivationText">Start your day by completing your habits!</p>
+      </div>
+
+      <!-- Today's Habits + Weekly Overview row -->
+      <div class="dashboard-grid">
+        <!-- Today's Habits -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Today's Habits</h2>
+            <span class="today-date" id="todayDateDisplay"></span>
+          </div>
+          <div id="todayHabitsList" class="today-habits-list"></div>
+          <div class="empty-state" id="todayEmptyState" style="display:none">
+            <span>🌱</span>
+            <p>No habits yet. Add your first habit!</p>
+          </div>
+        </div>
+
+        <!-- Weekly Overview -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Weekly Overview</h2>
+          </div>
+          <div id="weeklyOverview" class="weekly-overview">
+            <div class="week-days-header">
+              <span>Mon</span><span>Tue</span><span>Wed</span>
+              <span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+            <div id="weeklyGrid" class="weekly-grid"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ─── MY HABITS ──────────────────────────────────────── -->
+    <section class="section" id="section-habits" aria-labelledby="pageTitle">
+      <div class="habits-toolbar">
+        <input class="search-input" type="search" id="habitSearch" placeholder="Search habits…"
+          aria-label="Search habits" />
+        <select class="filter-select" id="categoryFilter" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          <option value="Health">Health</option>
+          <option value="Study">Study</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Productivity">Productivity</option>
+          <option value="Personal">Personal</option>
+          <option value="Other">Other</option>
+        </select>
+        <button class="btn btn-primary" id="habitsAddBtn">+ Add Habit</button>
+      </div>
+
+      <div id="habitsGrid" class="habits-grid"></div>
+
+      <div class="empty-state" id="habitsEmptyState" style="display:none">
+        <span>📭</span>
+        <p>No habits found. Try a different search or add your first habit!</p>
+      </div>
+    </section>
+
+    <!-- ─── CALENDAR ───────────────────────────────────────── -->
+    <section class="section" id="section-calendar" aria-labelledby="pageTitle">
+      <div class="card">
+        <div class="card-header">
+          <h2>30-Day Progress Calendar</h2>
+          <div class="calendar-legend">
+            <span class="legend-item"><span class="legend-dot completed"></span>Completed</span>
+            <span class="legend-item"><span class="legend-dot missed"></span>Missed</span>
+            <span class="legend-item"><span class="legend-dot today-dot"></span>Today</span>
+          </div>
+        </div>
+        <div class="calendar-scroll">
+          <div id="calendarContainer" class="calendar-container" role="grid" aria-label="30-day habit calendar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── INSIGHTS ───────────────────────────────────────── -->
+    <section class="section" id="section-insights" aria-labelledby="pageTitle">
+      <!-- Insight Cards Row -->
+      <div class="insights-top-grid">
+        <div class="insight-card accent-green">
+          <div class="insight-icon">🏆</div>
+          <div>
+            <div class="insight-value" id="insightOverall">0%</div>
+            <div class="insight-label">Overall Rate (7 days)</div>
+          </div>
+        </div>
+        <div class="insight-card accent-orange">
+          <div class="insight-icon">🔥</div>
+          <div>
+            <div class="insight-value" id="insightLongestStreak">0 days</div>
+            <div class="insight-label">Longest Active Streak</div>
+          </div>
+        </div>
+        <div class="insight-card accent-blue">
+          <div class="insight-icon">⭐</div>
+          <div>
+            <div class="insight-value" id="insightMostConsistent">—</div>
+            <div class="insight-label">Most Consistent Habit</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last 7-Day Chart -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Last 7 Days — Daily Completion</h2>
+        </div>
+        <div id="weeklyChart" class="bar-chart" role="img" aria-label="Weekly completion chart"></div>
+      </div>
+
+      <!-- Per-Habit 7-Day Breakdown -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Habit Performance</h2>
+        </div>
+        <div id="habitPerformanceList" class="habit-performance-list"></div>
+      </div>
+
+      <!-- Insight Messages -->
+      <div class="card">
+        <div class="card-header">
+          <h2>💡 Insights</h2>
+        </div>
+        <ul id="insightMessages" class="insight-messages"></ul>
+      </div>
+    </section>
+
+    <!-- ─── SETTINGS ──────────-->
+    <section class="section" id="section-settings" aria-labelledby="pageTitle">
+      <div class="settings-grid">
+
+        <div class="card settings-card">
+          <h2>Appearance</h2>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Dark Mode</div>
+              <div class="setting-desc">Switch between light and dark theme</div>
+            </div>
+            <label class="toggle" aria-label="Toggle dark mode">
+              <input type="checkbox" id="darkModeToggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card settings-card">
+          <h2>Data Management</h2>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Export Data</div>
+              <div class="setting-desc">Download all habit data as JSON</div>
+            </div>
+            <button class="btn btn-outline" id="exportBtn">⬇ Export</button>
+          </div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Import Data</div>
+              <div class="setting-desc">Restore habits from a JSON file</div>
+            </div>
+            <label class="btn btn-outline" style="cursor:pointer">
+              ⬆ Import
+              <input type="file" id="importFile" accept=".json" style="display:none" aria-label="Import JSON file" />
+            </label>
+          </div>
+        </div>
+
+        <div class="card settings-card danger-card">
+          <h2>Danger Zone</h2>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Reset All Data</div>
+              <div class="setting-desc">Permanently delete all habits and history</div>
+            </div>
+            <button class="btn btn-danger" id="resetAllBtn">🗑 Reset</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /.main-wrapper -->
+
+  <!-- ══════════ ADD/EDIT MODAL ═══ -->
+  <div class="modal-backdrop" id="habitModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add New Habit</h2>
+        <button class="modal-close" id="modalClose" aria-label="Close modal">✕</button>
+      </div>
+      <form id="habitForm" novalidate>
+        <div class="form-grid">
+
+          <!-- Name -->
+          <div class="form-group full">
+            <label for="habitName">Habit Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="habitName" placeholder="e.g. Read for 30 Minutes" autocomplete="off" required />
+            <small class="error-msg" id="habitNameError"></small>
+          </div>
+
+          <!-- Icon + Color -->
+          <div class="form-group">
+            <label>Icon / Emoji</label>
+            <div class="emoji-grid" id="emojiGrid" role="group" aria-label="Select habit icon">
+              <!-- Populated by JS -->
+            </div>
+            <input type="text" id="habitIconCustom" placeholder="Or type any emoji" maxlength="4" style="margin-top:8px"
+              aria-label="Custom emoji" />
+          </div>
+
+          <div class="form-group">
+            <label for="habitColor">Accent Color</label>
+            <div class="color-swatches" id="colorSwatches" role="group" aria-label="Select color"></div>
+            <input type="color" id="habitColor" value="#10b981"
+              style="margin-top:8px;width:100%;height:36px;border:none;cursor:pointer;border-radius:8px"
+              aria-label="Custom color" />
+          </div>
+
+          <!-- Category -->
+          <div class="form-group">
+            <label for="habitCategory">Category</label>
+            <select id="habitCategory">
+              <option value="Health">Health 🍎</option>
+              <option value="Study">Study 📚</option>
+              <option value="Fitness">Fitness 💪</option>
+              <option value="Productivity">Productivity ⚡</option>
+              <option value="Personal">Personal 🌟</option>
+              <option value="Other">Other 🎯</option>
+            </select>
+          </div>
+
+          <!-- Start Date -->
+          <div class="form-group">
+            <label for="habitStartDate">Start Date</label>
+            <input type="date" id="habitStartDate" />
+          </div>
+
+          <!-- Frequency -->
+          <div class="form-group full">
+            <label>Frequency</label>
+            <div class="frequency-options" role="group" aria-label="Frequency">
+              <label class="freq-option">
+                <input type="radio" name="frequency" value="daily" checked /> Daily
+              </label>
+              <label class="freq-option">
+                <input type="radio" name="frequency" value="custom" /> Custom days
+              </label>
+            </div>
+            <div class="day-selector" id="daySelector" hidden>
+              <label class="day-btn"><input type="checkbox" value="0" /> Sun</label>
+              <label class="day-btn"><input type="checkbox" value="1" /> Mon</label>
+              <label class="day-btn"><input type="checkbox" value="2" /> Tue</label>
+              <label class="day-btn"><input type="checkbox" value="3" /> Wed</label>
+              <label class="day-btn"><input type="checkbox" value="4" /> Thu</label>
+              <label class="day-btn"><input type="checkbox" value="5" /> Fri</label>
+              <label class="day-btn"><input type="checkbox" value="6" /> Sat</label>
+            </div>
+          </div>
+
+          <!-- Reminder -->
+          <div class="form-group">
+            <label for="habitReminder">Reminder Time <small>(optional)</small></label>
+            <input type="time" id="habitReminder" />
+          </div>
+
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="modalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="modalSubmit">Add Habit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═ CONFIRM MODAL ═══ -->
+  <div class="modal-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" hidden>
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2 id="confirmTitle">Confirm</h2>
+      </div>
+      <p id="confirmMessage" style="margin:0 0 24px"></p>
+      <div class="modal-actions">
+        <button class="btn btn-outline" id="confirmCancel">Cancel</button>
+        <button class="btn btn-danger" id="confirmOk">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TOAST ═══ -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
