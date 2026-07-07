@@ -1,7 +1,8 @@
 # 🔥 Streakly — Habit Streak Tracker
 
 > A polished, frontend-only habit tracker built with pure HTML, CSS, and vanilla JavaScript.  
-> No frameworks. No backend. Just open `index.html` and start building streaks.
+> No frameworks. No backend. Just open `index.html` and start building streaks.  
+> **Live Demo**: [streakly-habit.netlify.app](https://streakly-habit.netlify.app/)
 
 ---
 

@@ -25,7 +25,7 @@ This repository contains the projects developed during the hackathon.
 ---
 
 ### 🔥 Habit Streak Tracker — Streakly
- **[Streakly](file:///d:/project/COSC%20Hackweek/Habit%20Streak%20Tracker/README.md)**
+ **[Streakly](file:///d:/project/COSC%20Hackweek/Habit%20Streak%20Tracker/README.md)** | **[Live Demo](https://streakly-habit.netlify.app/)**
    - **Stack**: Pure HTML5, CSS3, and Vanilla JS (ES6+).
    - **Key Features**: 5-section dashboard, 30-day calendar grid, streak calculation, dark mode, export/import JSON, and responsive mobile layout with LocalStorage persistence.
    - **No setup required**: Simply double-click `index.html` to run!
