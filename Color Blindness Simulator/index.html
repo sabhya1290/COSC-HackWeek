@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VisionShift: A color blindness simulator to see images through different color vision deficiencies. Built for inclusive and accessible design.">
+  <title>VisionShift - Color Blindness Simulator</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-group">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <div>
+          <h1>VisionShift</h1>
+          <p class="tagline">See your designs through different eyes.</p>
+        </div>
+      </div>
+      <button id="header-upload-btn" class="btn btn-primary" aria-label="Upload a new image">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        Upload Image
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    
+    <!-- Upload Section / Empty State -->
+    <section id="upload-section" class="upload-section">
+      <div class="container">
+        <div id="drop-zone" class="drop-zone" role="region" aria-label="Image Upload Area" tabindex="0">
+          <input type="file" id="file-input" accept="image/png, image/jpeg, image/jpg, image/webp" class="file-input" aria-label="Upload image file picker">
+          <div class="drop-zone-content">
+            <div class="upload-icon-container">
+              <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </div>
+            <h2>Drag & drop your image here</h2>
+            <p class="upload-help-text">or click to browse from your device</p>
+            <span class="file-types">Supported formats: PNG, JPG, JPEG, WEBP</span>
+            <button id="browse-btn" class="btn btn-secondary mt-4" type="button" aria-controls="file-input">
+              Choose File
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simulator Workspace (Hidden initially, shown after image upload) -->
+    <section id="simulator-workspace" class="simulator-workspace d-none">
+      <div class="container">
+        
+        <!-- Controls Bar -->
+        <div class="controls-card">
+          <div class="workspace-header">
+            <h3>Simulator Controls</h3>
+            <div class="workspace-actions">
+              <button id="reset-btn" class="btn btn-danger-outline" aria-label="Reset application and remove uploaded image">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M23 4v6h-6"></path>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                Reset
+              </button>
+              <button id="download-btn" class="btn btn-success" aria-label="Download simulated image as PNG">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download PNG
+              </button>
+            </div>
+          </div>
+
+          <!-- Vision Mode Selector -->
+          <div class="vision-modes-section">
+            <h4 class="section-title">Select Vision Mode:</h4>
+            <div class="mode-buttons-grid" role="radiogroup" aria-label="Color vision deficiency modes">
+              <button class="mode-btn active" data-mode="normal" role="radio" aria-checked="true">
+                <span class="mode-title">Normal Vision</span>
+                <span class="mode-desc">Standard color perception</span>
+              </button>
+              <button class="mode-btn" data-mode="protanopia" role="radio" aria-checked="false">
+                <span class="mode-title">Protanopia</span>
+                <span class="mode-desc">Red-blind (L-cone missing)</span>
+              </button>
+              <button class="mode-btn" data-mode="deuteranopia" role="radio" aria-checked="false">
+                <span class="mode-title">Deuteranopia</span>
+                <span class="mode-desc">Green-blind (M-cone missing)</span>
+              </button>
+              <button class="mode-btn" data-mode="tritanopia" role="radio" aria-checked="false">
+                <span class="mode-title">Tritanopia</span>
+                <span class="mode-desc">Blue-blind (S-cone missing)</span>
+              </button>
+              <button class="mode-btn" data-mode="achromatopsia" role="radio" aria-checked="false">
+                <span class="mode-title">Achromatopsia</span>
+                <span class="mode-desc">Monochromacy (no color)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Comparison View Toggle -->
+          <div class="view-toggle-section">
+            <span class="toggle-label">Comparison Mode:</span>
+            <div class="toggle-button-group" role="tablist" aria-label="Comparison display options">
+              <button id="toggle-side-by-side" class="toggle-btn active" role="tab" aria-selected="true" aria-controls="preview-container-side">
+                Side by Side
+              </button>
+              <button id="toggle-slider" class="toggle-btn" role="tab" aria-selected="false" aria-controls="preview-container-slider">
+                Compare Slider
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Processing Indicator -->
+        <div id="loading-overlay" class="loading-overlay d-none" aria-live="polite" aria-busy="true">
+          <div class="spinner"></div>
+          <p>Processing image simulation...</p>
+        </div>
+
+        <!-- Preview Areas -->
+        <div class="preview-workspace">
+          
+          <!-- Side-by-Side View -->
+          <div id="preview-container-side" class="preview-container-side">
+            <div class="preview-card">
+              <div class="preview-card-header">
+                <span class="badge badge-original">Original Image</span>
+              </div>
+              <div class="image-wrapper">
+                <img id="original-preview-side" alt="Original uploaded image" class="img-fluid">
+              </div>
+            </div>
+            <div class="preview-card">
+              <div class="preview-card-header">
+                <span class="badge badge-simulated" id="simulated-badge-side">Simulated (Normal Vision)</span>
+              </div>
+              <div class="image-wrapper">
+                <canvas id="simulated-canvas-side"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compare Slider View (Hidden by default) -->
+          <div id="preview-container-slider" class="preview-container-slider d-none">
+            <div class="slider-wrapper" id="slider-wrapper">
+              <!-- Background / Simulated Canvas -->
+              <div class="slider-image-container simulated-container">
+                <canvas id="simulated-canvas-slider"></canvas>
+                <span class="slider-badge badge-simulated" id="simulated-badge-slider">Simulated (Normal Vision)</span>
+              </div>
+              <!-- Foreground / Original Image (clipped) -->
+              <div class="slider-image-container original-container" id="slider-original-container">
+                <img id="original-preview-slider" alt="Original uploaded image preview in slider view">
+                <span class="slider-badge badge-original">Original Image</span>
+              </div>
+              <!-- Draggable Divider Line/Handle -->
+              <div class="slider-handle" id="slider-handle" tabindex="0" role="slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Image comparison slider control">
+                <div class="slider-handle-line"></div>
+                <div class="slider-handle-button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="8 17 3 12 8 7"></polyline>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+      <div class="container">
+        <h3 class="info-title">Understanding Color Vision Deficiencies</h3>
+        <p class="info-subtitle">Color blindness affects approximately 1 in 12 men and 1 in 200 women globally. Designing with these conditions in mind ensures your products are accessible to everyone.</p>
+        
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-header protanopia-border">
+              <span class="indicator protanopia-bg"></span>
+              <h4>Protanopia</h4>
+            </div>
+            <p>Red-blindness caused by the complete absence of red retinal photoreceptors (L-cones). Red colors appear dark, and individuals struggle to distinguish between red/green and orange/yellow-green hues.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-header deuteranopia-border">
+              <span class="indicator deuteranopia-bg"></span>
+              <h4>Deuteranopia</h4>
+            </div>
+            <p>Green-blindness caused by the complete absence of green retinal photoreceptors (M-cones). Green/red confusion is common, and it is the most frequent form of color vision deficiency.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-header tritanopia-border">
+              <span class="indicator tritanopia-bg"></span>
+              <h4>Tritanopia</h4>
+            </div>
+            <p>Blue-blindness caused by the complete absence of blue retinal photoreceptors (S-cones). This rare form makes it difficult to distinguish between blue/green and yellow/violet.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-header achromatopsia-border">
+              <span class="indicator achromatopsia-bg"></span>
+              <h4>Achromatopsia</h4>
+            </div>
+            <p>Complete color blindness (monochromacy) where the person sees only black, white, and shades of gray. Usually accompanied by sensitivity to bright light and visual acuity limitations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <p>@sabhya1290</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -31,6 +31,14 @@ This repository contains the projects developed during the hackathon.
    - **No setup required**: Simply double-click `index.html` to run!
 
 ---
+ 
+### 👁️ Color Blindness Simulator — VisionShift
+ **[VisionShift](file:///d:/project/COSC%20Hackweek/Color%20Blindness%20Simulator/README.md)**
+   - **Stack**: Pure HTML5 Canvas, CSS3, and Vanilla JS.
+   - **Key Features**: Side-by-side & slider comparison views, real-time matrix simulations for Protanopia, Deuteranopia, Tritanopia, and Achromatopsia, custom PNG downloader, and responsive accessibility design.
+   - **No setup required**: Simply double-click `index.html` to run!
+
+---
 
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
