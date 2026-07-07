@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Business Card Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <div>
+            <h1>Digital Business Card</h1>
+        </div>
+        <p class="header-note">Create, customize, and share your identity.</p>
+    </header>
+
+    <main class="app-layout">
+        <section class="form-panel" aria-labelledby="form-heading">
+            <div class="panel-heading">
+                <h2 id="form-heading">Your Details</h2>
+                <p>Your card updates automatically while you type.</p>
+            </div>
+
+            <form id="cardForm" novalidate>
+                <div class="form-grid">
+                    <div class="input-group full-width">
+                        <label for="fullName">Full Name <span>*</span></label>
+                        <input id="fullName" type="text" placeholder="e.g. John Doe" required />
+                        <small class="error-message" id="nameError"></small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input id="jobTitle" type="text" placeholder="e.g. AI Engineer" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="company">Company / College</label>
+                        <input id="company" type="text" placeholder="e.g. Acme Corporation" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" placeholder="you@example.com" />
+                        <small class="error-message" id="emailError"></small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <input id="phone" type="tel" placeholder="+91 98765 43210" />
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label for="location">Location</label>
+                        <input id="location" type="text" placeholder="e.g. San Francisco, CA" />
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label for="bio">Short Bio</label>
+                        <textarea id="bio" rows="3"
+                            placeholder="Write a short introduction about yourself..."></textarea>
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label for="profileImage">Profile Image</label>
+                        <input id="profileImage" type="file" accept="image/*" />
+                        <small>Upload JPG, PNG, or WEBP.</small>
+                    </div>
+                </div>
+
+                <div class="form-divider"><span>Social Links</span></div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="linkedin">LinkedIn URL</label>
+                        <input id="linkedin" type="url" placeholder="linkedin.com/in/yourname" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="github">GitHub URL</label>
+                        <input id="github" type="url" placeholder="github.com/yourname" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="instagram">Instagram URL</label>
+                        <input id="instagram" type="url" placeholder="instagram.com/yourname" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="portfolio">Portfolio / Website URL</label>
+                        <input id="portfolio" type="url" placeholder="yourwebsite.com" />
+                    </div>
+                </div>
+
+                <div class="form-divider"><span>Customize</span></div>
+
+                <fieldset class="template-section">
+                    <legend>Choose a Template</legend>
+                    <div class="template-buttons">
+                        <button type="button" class="template-btn active" data-template="modern">Modern
+                            Professional</button>
+                        <button type="button" class="template-btn" data-template="developer">Dark Developer</button>
+                        <button type="button" class="template-btn" data-template="creative">Creative Gradient</button>
+                        <button type="button" class="template-btn" data-template="minimal">Minimal Clean</button>
+                    </div>
+                </fieldset>
+
+                <div class="settings-row">
+                    <div class="input-group accent-picker">
+                        <label for="accentColor">Accent Color</label>
+                        <input id="accentColor" type="color" value="#2f6bff" aria-label="Choose accent color" />
+                    </div>
+
+                    <label class="toggle-control">
+                        <input id="showContact" type="checkbox" checked />
+                        <span class="toggle-switch"></span>
+                        Show contact details
+                    </label>
+
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-secondary" id="resetBtn">↻ Reset Form</button>
+                    <button type="button" class="btn btn-primary" id="saveBtn">✓ Save Details</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="preview-panel" aria-labelledby="preview-heading">
+            <div class="preview-heading">
+                <div>
+                    <p class="eyebrow">LIVE PREVIEW</p>
+                    <h2 id="preview-heading">Your Digital Card</h2>
+                </div>
+                <span class="live-badge">● Live</span>
+            </div>
+
+            <div class="card-stage">
+                <article id="businessCard" class="business-card template-modern">
+                    <div class="card-decoration decoration-one"></div>
+                    <div class="card-decoration decoration-two"></div>
+
+                    <div class="card-main">
+                        <div class="card-top">
+                            <div id="profileVisual" class="profile-visual initials-placeholder"></div>
+                            <div class="identity">
+                                <h3 id="previewName"></h3>
+                                <p id="previewTitle"></p>
+                                <p id="previewCompany"></p>
+                            </div>
+                        </div>
+
+                        <p id="previewBio" class="card-bio"></p>
+
+                        <div id="contactDetails" class="contact-details">
+                            <a id="emailLink" href="#" class="contact-item">
+                                <span>✉</span><span id="previewEmail"></span>
+                            </a>
+                            <a id="phoneLink" href="#" class="contact-item">
+                                <span>☎</span><span id="previewPhone"></span>
+                            </a>
+                            <div class="contact-item">
+                                <span>⌖</span><span id="previewLocation"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <div id="socialLinks" class="social-links" aria-label="Social links"></div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="download-actions">
+                <button id="downloadBtn" class="btn btn-primary">⇩ Download as PNG</button>
+                <button id="printBtn" class="btn btn-outline">🖨 Print / Save as PDF</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>

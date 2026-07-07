@@ -16,6 +16,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 📇 Digital Business Card Generator
+1. **[Digital Business Card Generator](file:///d:/project/COSC%20Hackweek/Digital%20Business%20Card%20Generator/README.md)**
+   - **Stack**: Pure HTML5, CSS3, and Vanilla JS (ES6+), with html2canvas.
+   - **Key Features**: 4 premium card templates, local storage persistence, interactive custom accent color picker, dynamic profile initials, high-resolution PNG download, and responsive print/PDF styles.
+   - **No setup required**: Simply double-click `index.html` to run!
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.
