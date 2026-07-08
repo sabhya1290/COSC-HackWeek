@@ -2,8 +2,6 @@
 
 > A professional, interactive playground and custom interpreter pipeline for learning programming language design.
 
-![TinyLang Studio Interface](./dashboard.png)
-
 TinyLang Studio is a professional developer dashboard and custom interpreter for **TinyLang** — a lightweight, structured programming language designed to demonstrate compiler/interpreter architecture. It features a sandbox execution pipeline (Lexer, Parser, AST, and Evaluator) built completely from scratch using Node.js, and a glassmorphic dashboard interface built using React + CSS.
 
 ---
@@ -67,9 +65,9 @@ PRINT total
 Execute branching logic using structured `IF-THEN-ELSE-END` statements:
 ```text
 IF age >= 18 THEN
-  PRINT "Access Granted"
+  PRINT "Adult"
 ELSE
-  PRINT "Access Denied"
+  PRINT "Minor"
 END
 ```
 
@@ -111,11 +109,72 @@ npm run dev
 
 ---
 
-## 📂 Example Programs
+## 📂 Example Programs & Visual Screenshots
 
-| Program | TinyLang Source | Expected Output |
-| :--- | :--- | :--- |
-| **1. Hello World** | `PRINT "Hello World"` | `Hello World` |
-| **2. Variables** | `LET a = 5`<br>`LET b = 10`<br>`PRINT a + b` | `15` |
-| **3. Conditionals** | `LET x = 12`<br>`IF x % 2 == 0 THEN`<br>`  PRINT "Even"`<br>`ELSE`<br>`  PRINT "Odd"`<br>`END` | `Even` |
-| **4. FizzBuzz** | `FOR i = 1 TO 15`<br>`  IF i % 15 == 0 THEN`<br>`    PRINT "FizzBuzz"`<br>`  ELSE`<br>`    IF i % 3 == 0 THEN`<br>`      PRINT "Fizz"`<br>`    ELSE`<br>`      IF i % 5 == 0 THEN`<br>`        PRINT "Buzz"`<br>`      ELSE`<br>`        PRINT i`<br>`      END`<br>`    END`<br>`  END`<br>`END` | `1`<br>`2`<br>`Fizz`<br>`4`<br>`Buzz`<br>`Fizz`<br>`7`<br>`8`<br>`Fizz`<br>`Buzz`<br>`11`<br>`Fizz`<br>`13`<br>`14`<br>`FizzBuzz` |
+### 1. Hello World / Print Example
+```text
+PRINT "Hello World"
+```
+**Output Execution:**
+![Print Screenshot](./Screenshot%20and%20video/Print.png)
+
+---
+
+### 2. Variables and Arithmetic
+```text
+LET a = 15
+LET b = 10
+LET total = (a + b) * 2 / 5
+PRINT "Variables total:"
+PRINT total
+```
+**Output Execution:**
+![Variables Screenshot](./Screenshot%20and%20video/Variable%20and%20arthemetic.png)
+
+---
+
+### 3. Conditional Branching (IF / ELSE)
+```text
+LET age = 20
+IF age >= 18 THEN
+  PRINT "Access Granted: Adult"
+ELSE
+  PRINT "Access Denied: Minor"
+END
+```
+**Output Execution:**
+![If and else Screenshot](./Screenshot%20and%20video/If%20and%20else.png)
+
+---
+
+### 4. Loops (FOR Loop)
+```text
+FOR i = 1 TO 5
+  PRINT i
+END
+```
+**Output Execution:**
+![Loop Screenshot](./Screenshot%20and%20video/Loop.png)
+
+---
+
+### 5. FizzBuzz Implementation
+```text
+FOR i = 1 TO 20
+  IF i % 15 == 0 THEN
+    PRINT "FizzBuzz"
+  ELSE
+    IF i % 3 == 0 THEN
+      PRINT "Fizz"
+    ELSE
+      IF i % 5 == 0 THEN
+        PRINT "Buzz"
+      ELSE
+        PRINT i
+      END
+    END
+  END
+END
+```
+**Output Execution:**
+![FizzBuzz Screenshot](./Screenshot%20and%20video/FizzBuzz.png)
