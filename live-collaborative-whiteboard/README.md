@@ -2,6 +2,8 @@
 
 > **“Draw together, think together.”**
 
+**👉 [Live Demo](https://syncsketch-live-collabrative-white-board.vercel.app/)**
+
 SyncSketch is a premium, real-time live collaborative whiteboard application. Multiple users can join a room using a unique code to draw, erase, brainstorm, and synchronize canvas state instantly across devices.
 
 ---
@@ -116,24 +118,4 @@ The application will launch on http://localhost:5173.
    - Pressing **Undo** in Window B deletes only Bob's last stroke across both screens.
    - Clicking **Clear Board** on either screen clears the whiteboard for everyone.
 
----
 
-## Deployment Guide
-
-### Deploy Server (e.g. on Render)
-1. Push the code to GitHub.
-2. Sign in to [Render](https://render.com) and create a new **Web Service**.
-3. Connect your GitHub repository and specify the **Root Directory** as `server`.
-4. Configure the Build and Start commands:
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start`
-5. Add the following **Environment Variables**:
-   - `PORT`: `5000` or blank (Render assigns one automatically)
-   - `CLIENT_URL`: The URL of your deployed client (e.g. `https://your-app.vercel.app`)
-
-### Deploy Client (e.g. on Vercel)
-1. Sign in to [Vercel](https://vercel.com) and import your repository.
-2. Specify the **Root Directory** as `client`.
-3. Add the following **Environment Variables**:
-   - `VITE_SERVER_URL`: The URL of your deployed backend service (e.g. `https://your-server.onrender.com`)
-4. Click **Deploy**.

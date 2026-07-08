@@ -48,6 +48,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🎨 Live Collaborative Whiteboard — SyncSketch
+ **[SyncSketch](file:///d:/project/COSC%20Hackweek/live-collaborative-whiteboard/README.md)** | **[Live Demo](https://syncsketch-live-collabrative-white-board.vercel.app/)**
+   - **Stack**: React (Vite), Node.js, Express, Socket.IO, HTML5 Canvas API, and CSS3.
+   - **Key Features**: Real-time collaborative sketching, text tools, LocalStorage vector backups, high-res canvas scaling, and fully responsive bottom toolbar for mobile screens.
+   - **Setup required**: Run the server and client separately as described in its README.
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.
