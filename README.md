@@ -40,6 +40,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🔍 File Metadata Inspector — MetaLens
+ **[MetaLens](file:///d:/project/COSC%20Hackweek/File%20Metadata%20Inspector/README.md)**
+   - **Stack**: Pure HTML5, CSS3, and Vanilla JS (ES6+), with EXIF.js and PDF.js.
+   - **Key Features**: Drag-and-drop support, metadata cards for multiple files, name-based search, type-based filters, copy to clipboard, export metadata as JSON, LocalStorage search history, and live toast status notifications.
+   - **No setup required**: Simply double-click `index.html` to run!
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.

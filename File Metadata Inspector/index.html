@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MetaLens: Complete frontend-only File Metadata Inspector. Extract dimensions, EXIF data, and PDF page counts securely in your browser.">
+  <title>MetaLens - File Metadata Inspector</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- CDNs for EXIF and PDF.js -->
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-relevant="additions"></div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-group">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        <div>
+          <h1>MetaLens</h1>
+          <p class="tagline">Understand your files before you share them.</p>
+        </div>
+      </div>
+      <button id="clear-all-btn" class="btn btn-danger-outline d-none" aria-label="Clear all uploaded files">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        </svg>
+        Clear All
+      </button>
+    </div>
+  </header>
+
+  <main class="container py-4">
+    
+    <!-- Upload Section -->
+    <section class="upload-section">
+      <div id="drop-zone" class="drop-zone" role="region" aria-label="File Upload Area" tabindex="0">
+        <input type="file" id="file-input" multiple accept="image/png, image/jpeg, image/jpg, image/webp, application/pdf" class="file-input" aria-label="Upload files picker">
+        <div class="drop-zone-content">
+          <div class="upload-icon-container">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="12" y1="18" x2="12" y2="12"></line>
+              <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+          </div>
+          <h2>Drag & drop files here</h2>
+          <p class="upload-help-text">or click to browse from your device</p>
+          <span class="file-types">Supported formats: PNG, JPG, JPEG, WEBP, PDF</span>
+          <button id="browse-btn" class="btn btn-secondary mt-3" type="button" aria-controls="file-input">
+            Choose Files
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters & Search Bar (Only visible when files exist) -->
+    <section id="controls-section" class="controls-section d-none">
+      <div class="controls-card">
+        <div class="search-box">
+          <label for="search-input" class="sr-only">Search files by name</label>
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-input" placeholder="Search uploaded files by name..." aria-label="Search uploaded files">
+          </div>
+        </div>
+        <div class="filter-group" role="tablist" aria-label="Filter files by type">
+          <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Files</button>
+          <button class="filter-btn" data-filter="image" role="tab" aria-selected="false">Images</button>
+          <button class="filter-btn" data-filter="pdf" role="tab" aria-selected="false">PDFs</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Grid / Workspace -->
+    <section class="workspace-section">
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state">
+        <div class="empty-state-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h3>No files uploaded yet</h3>
+        <p>Upload image or PDF files to view their properties, resolutions, and EXIF information locally in your browser.</p>
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="cards-grid" class="cards-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- Clear All Confirmation Dialog -->
+  <dialog id="clear-dialog" class="dialog-modal">
+    <div class="dialog-content">
+      <h3>Clear All Files?</h3>
+      <p>Are you sure you want to remove all uploaded files from your workspace? This action cannot be undone.</p>
+      <div class="dialog-actions">
+        <button id="cancel-clear-btn" class="btn btn-secondary">Cancel</button>
+        <button id="confirm-clear-btn" class="btn btn-danger">Yes, Clear All</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <p>@sabhya1290</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
