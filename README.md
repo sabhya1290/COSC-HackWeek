@@ -56,6 +56,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### ⚡ TinyLang Studio — Custom Programming Language & IDE
+ **[TinyLang Studio](file:///d:/project/COSC%20Hackweek/tiny-programming-language/README.md)**
+   - **Stack**: React (Vite), Node.js, Express, Javascript, and CSS3.
+   - **Key Features**: Custom-built sandboxed interpreter pipeline (Lexer, Parser, AST, Evaluator), synchronized line-numbered editor, infinite loop execution guards, and beautiful glassmorphism IDE dashboard.
+   - **Setup required**: Run the server and client separately as described in its README.
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.
