@@ -2,6 +2,8 @@
 
 A creative, responsive single-page CSS art showcase featuring **Pixel Panda DJ** performing on a vibrant, neon night festival stage. 
 
+**[Live Demo](https://sabhya1290.github.io/COSC-HackWeek/)**
+
 🏆 This project is built to showcase advanced styling capabilities, specifically handcrafted for pure CSS art challenges and competitions.
 
 ## 🚫 Zero Asset Guarantee

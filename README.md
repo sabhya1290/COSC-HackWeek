@@ -64,6 +64,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🐼 CSS Art Festival — Pixel Panda DJ
+ **[Pixel Panda DJ](file:///d:/project/COSC%20Hackweek/CSS%20Art%20Festival/README.md)** | **[Live Demo](https://sabhya1290.github.io/COSC-HackWeek/)**
+   - **Stack**: Pure HTML5 and CSS3 (No JavaScript, SVGs, or external images).
+   - **Key Features**: Responsive canvas built using CSS Container Queries (`cqw`), detailed panda mascot geometry, and complex CSS keyframe animations (blinking eyes, bouncing headphones, and spinning records).
+   - **No setup required**: Simply double-click `index.html` to run!
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.
