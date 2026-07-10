@@ -64,6 +64,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🦙 OllamaChat — Local LLM Chat Client
+ **[OllamaChat](file:///d:/project/COSC%20Hackweek/ollama-chat/README.md)**
+   - **Stack**: React (Vite), Node.js, Express, and CSS3, interacting with Ollama REST API.
+   - **Key Features**: Chat with locally running LLMs (like Llama 3.2), chat history, custom model configurations via env variables, and modern responsive developer-tool UI.
+   - **Setup required**: Run the server and client separately as described in its README, and ensure Ollama is running locally.
+
+---
+
 ### 🐼 CSS Art Festival — Pixel Panda DJ
  **[Pixel Panda DJ](file:///d:/project/COSC%20Hackweek/CSS%20Art%20Festival/README.md)** | **[Live Demo](https://sabhya1290.github.io/COSC-HackWeek/)**
    - **Stack**: Pure HTML5 and CSS3 (No JavaScript, SVGs, or external images).
