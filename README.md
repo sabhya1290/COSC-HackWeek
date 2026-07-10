@@ -72,6 +72,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🧠 DocuMind — Local Document Q&A RAG System
+ **[DocuMind](file:///d:/project/COSC%20Hackweek/ask-your-documents/README.md)**
+   - **Stack**: React (Vite), Node.js, Express, pdf-parse, and CSS3, interacting with Ollama REST API.
+   - **Key Features**: Private document-grounded question answering (RAG) using local LLMs (like llama3.2/gemma4), custom TF-IDF cosine-similarity context retrieval, sentence-boundary chunker, supports PDF, TXT, MD, and JSON formats, and shows clickable/expandable sources.
+   - **Setup required**: Run the server and client separately as described in its README, and ensure Ollama is running locally.
+
+---
+
 ### 🐼 CSS Art Festival — Pixel Panda DJ
  **[Pixel Panda DJ](file:///d:/project/COSC%20Hackweek/CSS%20Art%20Festival/README.md)** | **[Live Demo](https://sabhya1290.github.io/COSC-HackWeek/)**
    - **Stack**: Pure HTML5 and CSS3 (No JavaScript, SVGs, or external images).
