@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Storage Explorer - Options</title>
+  <link rel="stylesheet" href="options.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <img src="assets/icons/icon48.png" alt="Logo">
+        <h1>Browser Storage Explorer Settings</h1>
+      </div>
+    </header>
+
+    <main class="settings-card">
+      <form id="settings-form">
+        <!-- Theme Selection -->
+        <div class="setting-group">
+          <label for="default-theme">Default Theme</label>
+          <div class="select-wrapper">
+            <select id="default-theme" name="theme">
+              <option value="dark">Dark Mode (Recommended)</option>
+              <option value="light">Light Mode</option>
+              <option value="system">Follow System</option>
+            </select>
+          </div>
+          <p class="description">Select the default interface style for the dashboard and popup.</p>
+        </div>
+
+        <!-- Auto Refresh -->
+        <div class="setting-group">
+          <label for="auto-refresh">Auto-Refresh Interval</label>
+          <div class="select-wrapper">
+            <select id="auto-refresh" name="autoRefresh">
+              <option value="1">Every 1 second</option>
+              <option value="5">Every 5 seconds</option>
+              <option value="10">Every 10 seconds</option>
+              <option value="0">Disabled (Manual Refresh)</option>
+            </select>
+          </div>
+          <p class="description">How frequently the dashboard pulls active tab storage updates automatically.</p>
+        </div>
+
+        <!-- Export Format -->
+        <div class="setting-group">
+          <label for="export-format">Default Export Format</label>
+          <div class="select-wrapper">
+            <select id="export-format" name="exportFormat">
+              <option value="json">JSON (.json)</option>
+              <option value="csv">CSV (.csv)</option>
+            </select>
+          </div>
+          <p class="description">Preferred format when exporting data from LocalStorage, SessionStorage, or Cookies.</p>
+        </div>
+
+        <!-- Max Snapshots History -->
+        <div class="setting-group">
+          <label for="max-snapshots">Maximum Snapshot History</label>
+          <input type="number" id="max-snapshots" name="maxSnapshots" min="1" max="50" value="10">
+          <p class="description">Maximum number of storage snapshots to retain in extension storage (1-50).</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button type="submit" class="btn btn-primary" id="save-btn">Save Configurations</button>
+          <button type="button" class="btn btn-secondary" id="reset-btn">Reset Defaults</button>
+        </div>
+      </form>
+    </main>
+
+    <div id="toast" class="toast hidden">Settings saved successfully!</div>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

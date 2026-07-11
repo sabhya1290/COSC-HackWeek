@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Browser Storage Explorer",
+  "version": "1.0.0",
+  "description": "Inspect, search, edit, manage, export, and visualize LocalStorage, SessionStorage, Cookies, and IndexedDB of any website.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "cookies",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  }
+}

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Storage Explorer - Developer Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+  <div class="app-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/icons/icon48.png" alt="Logo" class="app-logo">
+        <div class="logo-text">
+          <h2>Storage Explorer</h2>
+          <span class="version">v1.0.0</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-view="overview">
+          <span class="icon">📊</span> Overview
+        </button>
+        <button class="nav-item" data-view="local">
+          <span class="icon">📦</span> Local Storage
+        </button>
+        <button class="nav-item" data-view="session">
+          <span class="icon">🧠</span> Session Storage
+        </button>
+        <button class="nav-item" data-view="cookies">
+          <span class="icon">🍪</span> Cookies
+        </button>
+        <button class="nav-item" data-view="indexeddb">
+          <span class="icon">🗂</span> IndexedDB
+        </button>
+        <button class="nav-item" data-view="snapshots">
+          <span class="icon">📸</span> Snapshots
+        </button>
+        <button class="nav-item" data-view="backups">
+          <span class="icon">💾</span> Backups
+        </button>
+        <button class="nav-item" data-view="settings">
+          <span class="icon">⚙️</span> Settings
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="inspecting-card">
+          <span class="label">Inspecting Tab</span>
+          <span id="inspecting-host" class="host">Loading tab...</span>
+          <div class="live-refresh-badge">
+            <span class="pulse-dot"></span>
+            <span id="refresh-mode-text">Live Auto Refresh</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Section: Overview -->
+      <section id="view-overview" class="content-section">
+        <div class="section-header">
+          <h1>Storage Overview</h1>
+          <button class="btn btn-secondary refresh-btn">🔄 Refresh Data</button>
+        </div>
+
+        <!-- Animated Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card gradient-purple" data-link="local">
+            <div class="card-details">
+              <h3>Local Storage</h3>
+              <div class="count" id="ov-local-count">0</div>
+              <p id="ov-local-size">0.00 KB</p>
+            </div>
+            <span class="card-bg-icon">📦</span>
+          </div>
+          
+          <div class="stat-card gradient-blue" data-link="session">
+            <div class="card-details">
+              <h3>Session Storage</h3>
+              <div class="count" id="ov-session-count">0</div>
+              <p id="ov-session-size">0.00 KB</p>
+            </div>
+            <span class="card-bg-icon">🧠</span>
+          </div>
+
+          <div class="stat-card gradient-green" data-link="cookies">
+            <div class="card-details">
+              <h3>Cookies</h3>
+              <div class="count" id="ov-cookies-count">0</div>
+              <p id="ov-cookies-domain">N/A</p>
+            </div>
+            <span class="card-bg-icon">🍪</span>
+          </div>
+
+          <div class="stat-card gradient-pink" data-link="indexeddb">
+            <div class="card-details">
+              <h3>IndexedDB</h3>
+              <div class="count" id="ov-idb-count">0</div>
+              <p id="ov-idb-size">0 Databases</p>
+            </div>
+            <span class="card-bg-icon">🗂</span>
+          </div>
+        </div>
+
+        <!-- Visualization & Favorite keys -->
+        <div class="visuals-row">
+          <!-- Pie chart visualizer -->
+          <div class="dashboard-panel chart-panel">
+            <h3>Storage Distribution</h3>
+            <div class="chart-container">
+              <svg id="storage-pie-chart" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#1f2937" stroke-width="20" />
+              </svg>
+              <div class="chart-legend" id="chart-legend-list">
+                <!-- Legend items injected by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Pinned/Favorite Keys -->
+          <div class="dashboard-panel favorites-panel">
+            <h3>⭐ Pinned Keys</h3>
+            <div class="fav-list-container" id="favorites-list">
+              <div class="empty-state">No pinned items. Pin storage keys to keep them handy.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Storage Inspector (LocalStorage, SessionStorage, Cookies, IndexedDB) -->
+      <section id="view-storage-inspector" class="content-section hidden">
+        <div class="section-header">
+          <div>
+            <h1 id="inspector-title">Storage Inspector</h1>
+            <p class="subtitle" id="inspector-subtitle">Manage items</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary refresh-btn">🔄 Refresh</button>
+            <button class="btn btn-secondary" id="btn-import">📥 Import JSON</button>
+            <button class="btn btn-secondary" id="btn-export">📤 Export</button>
+            <button class="btn btn-danger" id="btn-clear-all">🗑️ Clear All</button>
+            <button class="btn btn-primary" id="btn-add-entry">➕ Add Entry</button>
+          </div>
+        </div>
+
+        <!-- Search and Filter Bar -->
+        <div class="filter-bar">
+          <div class="search-box-wrapper">
+            <input type="text" id="search-input" placeholder="Search by key or value... (Ctrl + F)">
+            <span class="shortcut">Ctrl+F</span>
+          </div>
+          <div class="filter-options">
+            <label class="checkbox-container">
+              <input type="checkbox" id="chk-case-sensitive"> Case Sensitive
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" id="chk-show-favorites"> Show Pinned Only
+            </label>
+          </div>
+        </div>
+
+        <!-- IndexedDB Database Selector (Only visible for IndexedDB view) -->
+        <div id="idb-selector-bar" class="db-selector-bar hidden">
+          <div class="select-group">
+            <label for="idb-db-select">Database:</label>
+            <select id="idb-db-select"></select>
+          </div>
+          <div class="select-group">
+            <label for="idb-store-select">Object Store:</label>
+            <select id="idb-store-select"></select>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="btn-delete-idb">Delete DB</button>
+        </div>
+
+        <!-- Data Table Container -->
+        <div class="table-container">
+          <table class="data-table" id="storage-table">
+            <thead>
+              <tr id="table-headers">
+                <!-- Headers set by JS based on storage type -->
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Rows set by JS -->
+            </tbody>
+          </table>
+          <div class="table-empty-state hidden" id="table-empty-state">
+            <p>No storage items found.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Snapshots -->
+      <section id="view-snapshots" class="content-section hidden">
+        <div class="section-header">
+          <div>
+            <h1>Compare Snapshots</h1>
+            <p class="subtitle">Record and compare snapshots of client-side storage</p>
+          </div>
+          <button class="btn btn-primary" id="btn-take-snapshot">📸 Take Snapshot</button>
+        </div>
+
+        <div class="snapshot-split-layout">
+          <!-- Snapshot list -->
+          <div class="dashboard-panel list-side">
+            <h3>Saved Snapshots</h3>
+            <div class="snapshot-list" id="snapshot-list-container">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <!-- Compare side -->
+          <div class="dashboard-panel compare-side">
+            <h3>Snapshot Comparison</h3>
+            <div class="compare-selectors">
+              <div>
+                <label>Base Snapshot:</label>
+                <select id="compare-base-select"><option value="">Select Base</option></select>
+              </div>
+              <div>
+                <label>Compare Snapshot:</label>
+                <select id="compare-target-select"><option value="">Select Target</option></select>
+              </div>
+              <button class="btn btn-primary" id="btn-compare-now">Compare</button>
+            </div>
+
+            <div class="comparison-results" id="comparison-results-container">
+              <div class="empty-state">Select two snapshots and click Compare to view modifications.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Backups -->
+      <section id="view-backups" class="content-section hidden">
+        <div class="section-header">
+          <h1>Backup History</h1>
+        </div>
+        <div class="dashboard-panel">
+          <div class="backups-header-bar">
+            <h3>Local Configuration & Export Backups</h3>
+            <button class="btn btn-danger" id="btn-clear-backups">Clear Backup History</button>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Source Domain</th>
+                  <th>Items Count</th>
+                  <th>Storage Type</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="backups-table-body">
+                <!-- Backups injected by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Settings (Inline mirror of options) -->
+      <section id="view-settings" class="content-section hidden">
+        <div class="section-header">
+          <h1>Dashboard Configurations</h1>
+        </div>
+        <div class="dashboard-panel max-width-600">
+          <form id="dash-settings-form">
+            <div class="setting-group">
+              <label for="dash-theme">Active UI Theme</label>
+              <select id="dash-theme">
+                <option value="dark">Dark Theme</option>
+                <option value="light">Light Theme</option>
+                <option value="system">Follow System</option>
+              </select>
+            </div>
+            <div class="setting-group">
+              <label for="dash-auto-refresh">Live Refresh Rate</label>
+              <select id="dash-auto-refresh">
+                <option value="1">Every 1 second</option>
+                <option value="5">Every 5 seconds</option>
+                <option value="10">Every 10 seconds</option>
+                <option value="0">Disabled (Manual)</option>
+              </select>
+            </div>
+            <div class="setting-group">
+              <label for="dash-export-format">Preferred Export Format</label>
+              <select id="dash-export-format">
+                <option value="json">JSON (.json)</option>
+                <option value="csv">CSV (.csv)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Settings</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modals -->
+
+  <!-- Modal: Edit / Add Value -->
+  <div class="modal-overlay hidden" id="modal-edit-entry">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-edit-title">Add/Edit Storage Entry</h3>
+        <button class="modal-close-btn" id="btn-close-edit-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="edit-key">Key Name</label>
+          <input type="text" id="edit-key" placeholder="Enter key name">
+        </div>
+        <div class="form-group">
+          <label for="edit-value">Value</label>
+          <textarea id="edit-value" rows="6" placeholder="Enter value string or raw JSON"></textarea>
+        </div>
+        
+        <!-- Cookie Specific Options -->
+        <div id="cookie-specific-fields" class="cookie-specific-fields hidden">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cookie-path">Path</label>
+              <input type="text" id="cookie-path" value="/">
+            </div>
+            <div class="form-group">
+              <label for="cookie-domain">Domain</label>
+              <input type="text" id="cookie-domain" placeholder="e.g. .example.com">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cookie-expiry">Expiry Date</label>
+              <input type="datetime-local" id="cookie-expiry">
+            </div>
+            <div class="form-group">
+              <label for="cookie-samesite">SameSite</label>
+              <select id="cookie-samesite">
+                <option value="no_restriction">None</option>
+                <option value="lax">Lax</option>
+                <option value="strict">Strict</option>
+              </select>
+            </div>
+          </div>
+          <div class="checkbox-row">
+            <label class="checkbox-container">
+              <input type="checkbox" id="cookie-secure"> Secure Flag
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" id="cookie-httponly"> HttpOnly Flag
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-cancel-edit">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-entry">Save Entry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Fullscreen Value Viewer -->
+  <div class="modal-overlay hidden" id="modal-value-viewer">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <h3>Value Inspector & JSON Formatter</h3>
+        <div class="viewer-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-viewer-copy">📋 Copy</button>
+          <button class="modal-close-btn" id="btn-close-viewer-modal">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="viewer-layout">
+          <div class="viewer-raw">
+            <h4>Raw String</h4>
+            <textarea id="viewer-raw-text" readonly></textarea>
+          </div>
+          <div class="viewer-formatted">
+            <div class="formatted-header">
+              <h4>JSON Tree Visualizer</h4>
+              <button class="btn btn-secondary btn-xs" id="btn-expand-all">Expand All</button>
+              <button class="btn btn-secondary btn-xs" id="btn-collapse-all">Collapse All</button>
+            </div>
+            <div class="tree-container" id="json-tree-container">
+              <!-- Interactive JSON tree injected by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Delete Confirmation -->
+  <div class="modal-overlay hidden" id="modal-delete-confirm">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h3>Confirm Deletion</h3>
+        <button class="modal-close-btn" id="btn-close-delete-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="delete-confirm-text">Are you sure you want to delete this storage item? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-cancel-delete">Cancel</button>
+        <button class="btn btn-danger" id="btn-confirm-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden elements for file imports -->
+  <input type="file" id="file-import-input" accept=".json" style="display: none;">
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden">Action successful!</div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

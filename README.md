@@ -120,6 +120,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🌐 Browser Storage Explorer (Chrome/Edge Extension)
+ **[Browser Storage Explorer](file:///d:/project/COSC%20Hackweek/browser-storage-explorer/README.md)**
+   - **Stack**: Pure HTML5, CSS3, Vanilla JS (ES6+), Manifest V3, and Chrome Extension APIs.
+   - **Key Features**: Inspect and modify LocalStorage, SessionStorage, Cookies, and IndexedDB; search filtering with highlighted matches; interactive JSON tree visualizer; capture storage snapshots and perform side-by-side comparisons; backup history logs with automatic restore.
+   - **Setup required**: Load unpacked folder into browser extensions as described in its README.
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.
