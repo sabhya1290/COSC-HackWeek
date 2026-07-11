@@ -1,5 +1,5 @@
 import { db } from '../services/db.js';
-import { getAHash, getDHash, getPHash, getSimilarity, getHammingDistance } from '../utils/hashing.js';
+import { getHashesAndMetadata } from '../utils/hashing.js';
 import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
@@ -21,15 +21,8 @@ export const uploadImages = async (req, res) => {
       try {
         const filePath = file.path;
         
-        // Read dimensions using sharp
-        const metadata = await sharp(filePath).metadata();
-        const width = metadata.width || 0;
-        const height = metadata.height || 0;
-
-        // Generate hashes
-        const aHash = await getAHash(filePath);
-        const dHash = await getDHash(filePath);
-        const pHash = await getPHash(filePath);
+        // Generate hashes and dimensions in one single-pass operation
+        const data = await getHashesAndMetadata(filePath);
 
         const newImage = {
           id: file.filename.split('-')[0] || Math.random().toString(36).substr(2, 9),
@@ -37,13 +30,13 @@ export const uploadImages = async (req, res) => {
           filepath: `/uploads/${file.filename}`, // web-accessible path
           mime: file.mimetype,
           size: file.size,
-          width,
-          height,
+          width: data.width,
+          height: data.height,
           uploadedAt: new Date().toISOString(),
           hashes: {
-            aHash,
-            dHash,
-            pHash
+            aHash: data.aHash,
+            dHash: data.dHash,
+            pHash: data.pHash
           }
         };
 

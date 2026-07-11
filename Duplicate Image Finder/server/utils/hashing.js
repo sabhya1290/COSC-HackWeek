@@ -170,3 +170,68 @@ export function getSimilarity(hash1, hash2) {
   const distance = getHammingDistance(hash1, hash2);
   return Math.round(((64 - distance) / 64) * 100);
 }
+
+/**
+ * Generate all three hashes and metadata in a single fast, parallelized pipeline
+ */
+export async function getHashesAndMetadata(imagePath) {
+  const image = sharp(imagePath);
+  const metadata = await image.metadata();
+
+  // Run all resizes in parallel in-memory using clones
+  const [bufA, bufD, bufP] = await Promise.all([
+    image.clone().resize(8, 8, { fit: 'fill' }).grayscale().raw().toBuffer(),
+    image.clone().resize(9, 8, { fit: 'fill' }).grayscale().raw().toBuffer(),
+    image.clone().resize(32, 32, { fit: 'fill' }).grayscale().raw().toBuffer()
+  ]);
+
+  // 1. Average Hash (aHash)
+  let sumA = 0;
+  for (let i = 0; i < 64; i++) {
+    sumA += bufA[i];
+  }
+  const avgA = sumA / 64;
+  let binA = '';
+  for (let i = 0; i < 64; i++) {
+    binA += bufA[i] >= avgA ? '1' : '0';
+  }
+  const aHash = binaryToHex(binA);
+
+  // 2. Difference Hash (dHash)
+  let binD = '';
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      binD += bufD[r * 9 + c] > bufD[r * 9 + (c + 1)] ? '1' : '0';
+    }
+  }
+  const dHash = binaryToHex(binD);
+
+  // 3. Perceptual Hash (pHash)
+  const floatData = new Float64Array(1024);
+  for (let i = 0; i < 1024; i++) {
+    floatData[i] = bufP[i];
+  }
+  const dct = dct2D(floatData, 32);
+  const coefficients = [];
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      coefficients.push(dct[r * 32 + c]);
+    }
+  }
+  const subCoeffs = coefficients.slice(1).sort((a, b) => a - b);
+  const median = subCoeffs[Math.floor(subCoeffs.length / 2)];
+  let binP = '';
+  for (let i = 0; i < 64; i++) {
+    binP += coefficients[i] >= median ? '1' : '0';
+  }
+  const pHash = binaryToHex(binP);
+
+  return {
+    width: metadata.width || 0,
+    height: metadata.height || 0,
+    aHash,
+    dHash,
+    pHash
+  };
+}
+
