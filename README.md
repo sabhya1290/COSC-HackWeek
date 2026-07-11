@@ -96,6 +96,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🖼️ Duplicate Image Finder
+ **[Duplicate Image Finder](file:///d:/project/COSC%20Hackweek/Duplicate%20Image%20Finder/README.md)** | **[Live Demo](https://duplicateimagefinder.vercel.app/)**
+   - **Stack**: React (Vite), Node.js, Express, Sharp, and Tailwind CSS v4.
+   - **Key Features**: Multiple image uploads with drag & drop; dynamic aHash, dHash, and pHash calculations using in-memory pipelines; threshold similarity filtering; side-by-side comparison modal with spatial canvas difference heatmaps; exports to CSV, JSON, and PDF.
+   - **Setup required**: Run the server and client separately as described in its README.
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.
