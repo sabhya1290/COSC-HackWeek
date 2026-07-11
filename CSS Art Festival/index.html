@@ -1,241 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Art Festival - Pixel Panda DJ</title>
-    <!-- Descriptive meta tags for SEO -->
-    <meta name="description" content="A stunning, handcrafted CSS-only music festival mascot 'Pixel Panda DJ' performing at a neon stage. 100% pure HTML and CSS, without JavaScript, SVGs, or external images.">
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts for modern typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cute Panda</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Main Wrapper with interactive glow effects -->
-    <main class="festival-wrapper">
-        
-        <!-- Header Section -->
-        <header class="festival-header">
-            <h1 class="festival-title" id="main-title">CSS Art Festival</h1>
-            <p class="festival-subtitle">Pixel Panda — Handcrafted with HTML & CSS</p>
-            <div class="pure-css-badge" id="pure-css-badge">No Images • No SVG • Pure CSS</div>
-        </header>
-
-        <!-- CSS Art Canvas Section -->
-        <section class="art-container" aria-label="Pixel Panda DJ Artwork">
-            <div class="art-canvas-scaler">
-                <div class="art-canvas" id="panda-dj-canvas">
-                    
-                    <!-- BACKGROUND ENVIRONMENT -->
-                    <div class="stage-bg">
-                        <!-- Sky glow, stars, and moon -->
-                        <div class="crescent-moon"></div>
-                        <div class="stars-layer"></div>
-                        <div class="stars-layer-2"></div>
-                        
-                        <!-- Clouds -->
-                        <div class="cloud cloud-left"></div>
-                        <div class="cloud cloud-right"></div>
-                        
-                        <!-- Mountain silhouettes -->
-                        <div class="mountain mountain-left"></div>
-                        <div class="mountain mountain-right"></div>
-                    </div>
-
-                    <!-- DYNAMIC LIGHT BEAMS -->
-                    <div class="laser-beams">
-                        <div class="laser laser-1"></div>
-                        <div class="laser laser-2"></div>
-                        <div class="laser laser-3"></div>
-                        <div class="laser laser-4"></div>
-                    </div>
-
-                    <!-- STAGE LIGHTS & SPOTLIGHT GLOWS -->
-                    <div class="stage-strobe-lights">
-                        <div class="strobe strobe-1"></div>
-                        <div class="strobe strobe-2"></div>
-                        <div class="strobe strobe-3"></div>
-                        <div class="strobe strobe-4"></div>
-                    </div>
-
-                    <!-- FLOATING MUSIC NOTES -->
-                    <div class="music-notes">
-                        <div class="note note-1">♫</div>
-                        <div class="note note-2">♪</div>
-                        <div class="note note-3">♫</div>
-                        <div class="note note-4">♪</div>
-                        <div class="note note-5">♬</div>
-                    </div>
-
-                    <!-- FLOATING CONFETTI -->
-                    <div class="confetti-container">
-                        <div class="confetti c1"></div>
-                        <div class="confetti c2"></div>
-                        <div class="confetti c3"></div>
-                        <div class="confetti c4"></div>
-                        <div class="confetti c5"></div>
-                        <div class="confetti c6"></div>
-                    </div>
-
-                    <!-- PIXEL PANDA DJ CHARACTER -->
-                    <div class="character-panda">
-                        
-                        <!-- Panda Body Structure -->
-                        <div class="panda-body">
-                            <div class="panda-belly"></div>
-                            <!-- Panda limbs -->
-                            <div class="panda-arm arm-left">
-                                <div class="panda-paw"></div>
-                            </div>
-                            <div class="panda-arm arm-right">
-                                <div class="panda-paw"></div>
-                            </div>
-                            <div class="panda-leg leg-left"></div>
-                            <div class="panda-leg leg-right"></div>
-                        </div>
-
-                        <!-- Panda Head & Face Details -->
-                        <div class="panda-head-group">
-                            <!-- Ears -->
-                            <div class="panda-ear ear-left"></div>
-                            <div class="panda-ear ear-right"></div>
-                            
-                            <!-- Head Base -->
-                            <div class="panda-head">
-                                <!-- Eye patches & blinking eyes -->
-                                <div class="eye-patch patch-left">
-                                    <div class="eye eye-left">
-                                        <div class="pupil"></div>
-                                    </div>
-                                </div>
-                                <div class="eye-patch patch-right">
-                                    <div class="eye eye-right">
-                                        <div class="pupil"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Rosy Cheeks -->
-                                <div class="cheek cheek-left"></div>
-                                <div class="cheek cheek-right"></div>
-
-                                <!-- Nose and Snout -->
-                                <div class="snout">
-                                    <div class="nose"></div>
-                                    <div class="mouth"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- DJ Headphones -->
-                        <div class="dj-headphones">
-                            <div class="headband"></div>
-                            <div class="earcup earcup-left">
-                                <div class="earcup-glow"></div>
-                            </div>
-                            <div class="earcup earcup-right">
-                                <div class="earcup-glow"></div>
-                            </div>
-                            <div class="headphone-cord"></div>
-                        </div>
-
-                    </div>
-
-                    <!-- DJ CONSOLE / DECK -->
-                    <div class="dj-console">
-                        <!-- Main tabletop board -->
-                        <div class="console-board">
-                            
-                            <!-- Neon glowing front panel stripe -->
-                            <div class="neon-strip"></div>
-
-                            <!-- Left Turntable -->
-                            <div class="turntable tt-left">
-                                <div class="vinyl">
-                                    <div class="vinyl-lines"></div>
-                                    <div class="vinyl-label-left"></div>
-                                </div>
-                                <div class="tonearm"></div>
-                            </div>
-
-                            <!-- Right Turntable -->
-                            <div class="turntable tt-right">
-                                <div class="vinyl">
-                                    <div class="vinyl-lines"></div>
-                                    <div class="vinyl-label-right"></div>
-                                </div>
-                                <div class="tonearm"></div>
-                            </div>
-
-                            <!-- Mixer controls (sliders and knobs) -->
-                            <div class="mixer-section">
-                                <div class="level-indicator meter-left">
-                                    <div class="led led-red"></div>
-                                    <div class="led led-yellow"></div>
-                                    <div class="led led-green"></div>
-                                </div>
-                                <div class="faders">
-                                    <div class="fader-track track-1"><div class="fader-knob"></div></div>
-                                    <div class="fader-track track-2"><div class="fader-knob"></div></div>
-                                    <div class="fader-track crossfader"><div class="fader-knob"></div></div>
-                                </div>
-                                <div class="knobs">
-                                    <div class="knob knob-1"></div>
-                                    <div class="knob knob-2"></div>
-                                    <div class="knob knob-3"></div>
-                                </div>
-                                <div class="level-indicator meter-right">
-                                    <div class="led led-red"></div>
-                                    <div class="led led-yellow"></div>
-                                    <div class="led led-green"></div>
-                                </div>
-                            </div>
-
-                            <!-- Glowing status buttons -->
-                            <div class="console-buttons">
-                                <div class="btn btn-neon-blue"></div>
-                                <div class="btn btn-neon-pink"></div>
-                                <div class="btn btn-neon-green"></div>
-                            </div>
-
-                        </div>
-                        <!-- Console Stand/Base structure -->
-                        <div class="console-stand"></div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Technical Description Section -->
-        <section class="info-section" aria-labelledby="how-built-title">
-            <h2 id="how-built-title" class="info-heading">How it was built</h2>
-            <div class="info-grid">
-                <div class="info-card">
-                    <h3>CSS Positioning & Layers</h3>
-                    <p>Constructed with absolute positioning using <code>z-index</code> layers to stack the starry sky background, mountain silhouettes, DJ booth, the character, and the foreground console.</p>
-                </div>
-                <div class="info-card">
-                    <h3>Advanced CSS Gradients</h3>
-                    <p>Leveraged <code>linear-gradient</code> and <code>radial-gradient</code> layers to create vinyl record textures, realistic metal dials, neon volumetric light beams, and the deep twilight sky.</p>
-                </div>
-                <div class="info-card">
-                    <h3>Complex CSS Shapes</h3>
-                    <p>Designed the panda's anatomy and headphones using precise <code>border-radius</code> settings, combined with rotated and skewed <code>transform</code> states to build 3D perspective depth.</p>
-                </div>
-                <div class="info-card">
-                    <h3>Keyframe Animations</h3>
-                    <p>Crafted continuous CSS loops: eye-blinking via <code>scaleY</code> transitions, rotating vinyl disks, hovering music notes, sweeping lasers, and vibrating headphones to the music.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer Credits -->
-        <footer class="festival-footer">
-            <p>CSS Art Festival &copy; 2026 • Designed for CSS Art Competitions</p>
-        </footer>
-
-    </main>
+  <div class="scene">
+    <div class="panda">
+      <div class="ear left"></div>
+      <div class="ear right"></div>
+      <div class="head">
+        <div class="eye-patch left">
+          <div class="eye">
+            <span></span>
+          </div>
+        </div>
+        <div class="eye-patch right">
+          <div class="eye">
+            <span></span>
+          </div>
+        </div>
+        <div class="nose"></div>
+        <div class="mouth"></div>
+        <div class="blush left"></div>
+        <div class="blush right"></div>
+      </div>
+      <div class="body">
+        <div class="arm left"></div>
+        <div class="arm right"></div>
+        <div class="belly"></div>
+      </div>
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+    </div>
+    <div class="shadow"></div>
+    <h1>PANDA</h1>
+  </div>
 </body>
 </html>

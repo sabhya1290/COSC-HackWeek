@@ -88,10 +88,10 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
-### 🐼 CSS Art Festival — Pixel Panda DJ
- **[Pixel Panda DJ](file:///d:/project/COSC%20Hackweek/CSS%20Art%20Festival/README.md)** | **[Live Demo](https://sabhya1290.github.io/COSC-HackWeek/)**
+### 🐼 CSS Art Festival — Pixel Panda
+ **[Pixel Panda](file:///d:/project/COSC%20Hackweek/CSS%20Art%20Festival/README.md)** | **[Live Demo](https://sabhya1290.github.io/COSC-HackWeek/)**
    - **Stack**: Pure HTML5 and CSS3 (No JavaScript, SVGs, or external images).
-   - **Key Features**: Responsive canvas built using CSS Container Queries (`cqw`), detailed panda mascot geometry, and complex CSS keyframe animations (blinking eyes, bouncing headphones, and spinning records).
+   - **Key Features**: pure CSS panda layout, responsive scene.
    - **No setup required**: Simply double-click `index.html` to run!
 
 ---
