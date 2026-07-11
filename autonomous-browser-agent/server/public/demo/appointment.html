@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Booking - Demo Mode</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f1f5f9;
+      color: #334155;
+      padding: 40px 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    h2 {
+      margin-top: 0;
+      color: #0f172a;
+    }
+    .badge {
+      display: inline-block;
+      background: #fbbf24;
+      color: #78350f;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #475569;
+    }
+    input[type="text"], input[type="date"], select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+    }
+    button:hover {
+      background: #4338ca;
+    }
+    .booking-summary {
+      display: none;
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      padding: 20px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+    .booking-summary h3 {
+      margin-top: 0;
+      color: #1e3a8a;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <span class="badge">Demo Mode - Sandbox Only</span>
+  <h2>Book Demo Appointment</h2>
+  <p>Schedule a mock appointment below.</p>
+
+  <form id="book-form">
+    <div class="form-group">
+      <label for="patient-name">Patient Name</label>
+      <input type="text" id="patient-name" required placeholder="Jane Smith">
+    </div>
+    
+    <div class="form-group">
+      <label for="appointment-date">Preferred Date</label>
+      <input type="date" id="appointment-date" required>
+    </div>
+
+    <div class="form-group">
+      <label for="department">Department</label>
+      <select id="department" required>
+        <option value="">Select Department...</option>
+        <option value="General Consulting">General Consulting</option>
+        <option value="Cardiology">Cardiology</option>
+        <option value="Pediatrics">Pediatrics</option>
+        <option value="Orthopedics">Orthopedics</option>
+      </select>
+    </div>
+
+    <button type="submit">Confirm Mock Appointment</button>
+  </form>
+
+  <div id="booking-summary" class="booking-summary">
+    <h3>Appointment Confirmed!</h3>
+    <p><strong>Patient:</strong> <span id="summary-name"></span></p>
+    <p><strong>Date:</strong> <span id="summary-date"></span></p>
+    <p><strong>Department:</strong> <span id="summary-dept"></span></p>
+    <p><strong>Booking Status:</strong> Verified DEMO ONLY</p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('book-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('patient-name').value;
+    const date = document.getElementById('appointment-date').value;
+    const dept = document.getElementById('department').value;
+    
+    document.getElementById('summary-name').innerText = name;
+    document.getElementById('summary-date').innerText = date;
+    document.getElementById('summary-dept').innerText = dept;
+    
+    document.getElementById('booking-summary').style.display = 'block';
+  });
+</script>
+</body>
+</html>

@@ -80,6 +80,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🤖 AgentFlow — Autonomous Browser Agent
+ **[AgentFlow](file:///d:/project/COSC%20Hackweek/autonomous-browser-agent/README.md)**
+   - **Stack**: React (Vite), Node.js, Express, Playwright, and CSS3, with optional local Ollama LLM integration.
+   - **Key Features**: Fully autonomous browser automation; executes tasks like scraping pages, filling forms, and comparing products; visual step planning (Local Ollama or deterministic fallback); domain-locked allowlist safety checking; and detailed step-by-step logs and screenshot gallery.
+   - **Setup required**: Run the server and client separately as described in its README, and install Playwright.
+
+---
+
 ### 🐼 CSS Art Festival — Pixel Panda DJ
  **[Pixel Panda DJ](file:///d:/project/COSC%20Hackweek/CSS%20Art%20Festival/README.md)** | **[Live Demo](https://sabhya1290.github.io/COSC-HackWeek/)**
    - **Stack**: Pure HTML5 and CSS3 (No JavaScript, SVGs, or external images).
