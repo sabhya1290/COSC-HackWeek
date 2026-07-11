@@ -5,7 +5,8 @@ import {
   Sun, Moon, Layers, Grid, BarChart3, HelpCircle, Minimize2, ZoomIn
 } from 'lucide-react';
 
-const API_BASE = 'http://localhost:5000/api/images';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE = `${API_URL}/api/images`;
 
 export default function App() {
   const [images, setImages] = useState([]);
@@ -401,8 +402,8 @@ export default function App() {
 
     img1.crossOrigin = "anonymous";
     img2.crossOrigin = "anonymous";
-    img1.src = `http://localhost:5000${selectedPair.imgA.filepath}`;
-    img2.src = `http://localhost:5000${selectedPair.imgB.filepath}`;
+    img1.src = `${API_URL}${selectedPair.imgA.filepath}`;
+    img2.src = `${API_URL}${selectedPair.imgB.filepath}`;
     
     img1.onload = onLoad;
     img2.onload = onLoad;
@@ -789,7 +790,7 @@ export default function App() {
                     {/* Image Preview Container */}
                     <div className="relative aspect-video bg-slate-100 dark:bg-slate-950 overflow-hidden flex items-center justify-center">
                       <img 
-                        src={`http://localhost:5000${image.filepath}`} 
+                        src={`${API_URL}${image.filepath}`} 
                         alt={image.filename}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
@@ -932,7 +933,7 @@ export default function App() {
                         className="bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/50 rounded-2xl p-3 flex items-center space-x-3 relative group"
                       >
                         <img 
-                          src={`http://localhost:5000${img.filepath}`} 
+                          src={`${API_URL}${img.filepath}`} 
                           alt={img.filename} 
                           className="w-12 h-12 rounded-xl object-cover"
                         />
@@ -983,7 +984,7 @@ export default function App() {
               <div className="space-y-3">
                 <div className="aspect-video bg-slate-100 dark:bg-slate-950 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 flex items-center justify-center">
                   <img 
-                    src={`http://localhost:5000${selectedPair.imgA.filepath}`} 
+                    src={`${API_URL}${selectedPair.imgA.filepath}`} 
                     alt={selectedPair.imgA.filename} 
                     className="w-full h-full object-contain"
                   />
@@ -1028,7 +1029,7 @@ export default function App() {
               <div className="space-y-3">
                 <div className="aspect-video bg-slate-100 dark:bg-slate-950 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 flex items-center justify-center">
                   <img 
-                    src={`http://localhost:5000${selectedPair.imgB.filepath}`} 
+                    src={`${API_URL}${selectedPair.imgB.filepath}`} 
                     alt={selectedPair.imgB.filename} 
                     className="w-full h-full object-contain"
                   />
@@ -1073,7 +1074,7 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
               <div className="bg-slate-100 dark:bg-slate-950 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 aspect-square flex items-center justify-center">
                 <img 
-                  src={`http://localhost:5000${selectedImage.filepath}`} 
+                  src={`${API_URL}${selectedImage.filepath}`} 
                   alt={selectedImage.filename} 
                   className="w-full h-full object-contain"
                 />
