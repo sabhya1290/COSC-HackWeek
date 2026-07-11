@@ -104,6 +104,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🗜️ Image Compression Analyzer
+ **[Image Compression Analyzer](file:///d:/project/COSC%20Hackweek/image-compression-analyzer/README.md)**
+   - **Stack**: React (Vite), Node.js, Express, Sharp, and Tailwind CSS v4.
+   - **Key Features**: Drag & drop multi-uploader; debounced instant slider compression; split before/after slider & synchronized side-by-side zoomable inspect panels; metrics board with printable PDF exports and copy statistics; local storage history logs; presets and drag-drop reorder batch queues.
+   - **Setup required**: Run the server and client separately as described in its README.
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.

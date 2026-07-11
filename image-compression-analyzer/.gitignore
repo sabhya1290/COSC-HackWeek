@@ -1,0 +1,24 @@
+# Dependecy directories
+server/node_modules/
+
+# Production builds
+dist/
+dist-ssr/
+*.local
+
+# Temporary local server folders
+uploads/*
+!uploads/.gitkeep
+compressed/*
+!compressed/.gitkeep
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS files
+.DS_Store
+Thumbs.db
