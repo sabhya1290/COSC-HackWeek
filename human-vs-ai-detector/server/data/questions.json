@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "type": "text",
+    "difficulty": "easy",
+    "title": "A Recipe Description for Chocolate Chip Cookies",
+    "content": "Indulge in the ultimate culinary symphony with these artisanal chocolate chip confections. Handcrafted to state-of-the-art standards, each cookie features a harmonious juxtaposition of rich, melted semi-sweet cacao pockets nestled within a delicate, golden-brown cookie matrix. Perfect for elevates your afternoon tea experiences.",
+    "answer": "AI",
+    "explanation": "This text uses highly verbose, marketing-heavy language ('culinary symphony', 'artisanal chocolate chip confections', 'cookie matrix') and features a minor grammatical slip at the end ('elevates your afternoon tea') which is common in early-to-mid generative model drafts attempting excessively formal register.",
+    "clues": [
+      "Overly formal and theatrical language for a simple cookie recipe.",
+      "Buzzwords like 'harmonious juxtaposition' and 'state-of-the-art'.",
+      "Minor grammatical inconsistency ('for elevates your...')."
+    ],
+    "confidence": 92,
+    "hint": "Pay close attention to the vocabulary density and whether a normal human baker would describe a simple cookie this way."
+  },
+  {
+    "id": 2,
+    "type": "text",
+    "difficulty": "medium",
+    "title": "Short Paragraph on Coffee Habits",
+    "content": "Honestly, I can't start my day without a double shot of espresso. It's not even about the caffeine hit anymore, it's just the routine. I grind the beans (usually a medium roast, slightly fruity), pack the portafilter, and listen to the machine hiss. My husband says it's a personality trait at this point, but honestly, it's the only 5 minutes of the day that belong entirely to me.",
+    "answer": "Human",
+    "explanation": "This paragraph has a conversational, natural flow with personal anecdotes ('My husband says...'), parenthetical opinions, and a strong sense of personal identity. AI models can simulate this, but the specific phrasing ('not even about the caffeine hit anymore', 'only 5 minutes of the day that belong entirely to me') shows authentic human stream-of-consciousness.",
+    "clues": [
+      "Authentic personal anecdotes and conversational phrasing.",
+      "Parenthetical side notes that mimic human speech patterns.",
+      "Emotional resonance and relatable, unprompted daily routines."
+    ],
+    "confidence": 15,
+    "hint": "Look for emotional depth, real-world context, and natural sentence structures."
+  },
+  {
+    "id": 3,
+    "type": "code",
+    "difficulty": "easy",
+    "title": "Function to Calculate Fibonacci Sequence",
+    "content": "def calculate_fibonacci_sequence_up_to_limit(limit):\n    \"\"\"\n    Calculates and returns the Fibonacci sequence up to a given limit.\n\n    Parameters:\n    limit (int): The maximum value for the Fibonacci sequence elements.\n\n    Returns:\n    list: A list containing the Fibonacci sequence elements up to the limit.\n    \"\"\"\n    if not isinstance(limit, int) or limit < 0:\n        raise ValueError(\"Limit must be a non-negative integer.\")\n    \n    fibonacci_sequence = []\n    a, b = 0, 1\n    while a <= limit:\n        fibonacci_sequence.append(a)\n        a, b = b, a + b\n    return fibonacci_sequence",
+    "answer": "AI",
+    "explanation": "AI code generators write pristine docstrings, do extensive input validation for simple utility scripts, and name variables with extremely verbose, descriptive, and correct camelCase or snake_case format ('calculate_fibonacci_sequence_up_to_limit') even when unnecessary.",
+    "clues": [
+      "Pristine, multi-line, docstring matching standard AI-generated boilerplates.",
+      "Excessive parameter checking for a basic educational function.",
+      "Perfect, textbook variable naming conventions with zero shortcuts."
+    ],
+    "confidence": 88,
+    "hint": "Check how clean and structured the docstrings and error checking are for such a simple problem."
+  },
+  {
+    "id": 4,
+    "type": "code",
+    "difficulty": "hard",
+    "title": "Quicksort Implementation in JavaScript",
+    "content": "// todo: verify this logic doesn't crash on empty arrays\nfunction qSort(arr) {\n  if(arr.length <= 1) return arr;\n  \n  // pick the middle element as pivot\n  let p = arr[Math.floor(arr.length / 2)];\n  let left = []; let right = []; let eq = [];\n  \n  for(let x of arr) {\n    if(x < p) left.push(x);\n    else if(x > p) right.push(x);\n    else eq.push(x); // handle duplicates\n  }\n  \n  // hope recursion does not blow stack\n  return [...qSort(left), ...eq, ...qSort(right)];\n}",
+    "answer": "Human",
+    "explanation": "The code contains casual inline comments ('todo: verify...', 'hope recursion does not blow stack'), utilizes inline multiple declarations on one line ('let left = []; let right = []; let eq = [];'), and uses shorthand names like 'qSort', 'arr', 'p', 'eq', which are common human developer traits.",
+    "clues": [
+      "Casual, subjective inline comments ('hope recursion does not blow stack').",
+      "Quirky formatting like putting multiple variable declarations on a single line.",
+      "Natural shorthand naming choices ('qSort', 'eq', 'p')."
+    ],
+    "confidence": 20,
+    "hint": "Examine the comments and formatting. Do they feel like a developer writing notes to themselves?"
+  },
+  {
+    "id": 5,
+    "type": "image",
+    "difficulty": "easy",
+    "title": "Portrait of a Young Woman",
+    "content": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "answer": "Human",
+    "explanation": "This is a real photograph. The skin texture has natural imperfections, micro-hairs are visible, the lighting is physically consistent with a key light and softbox, and the iris reflections show a realistic studio setup without AI hallucination artifacts.",
+    "clues": [
+      "Realistic skin pores, microscopic hairs, and natural skin texture.",
+      "Optically correct depth of field and lens bokeh behavior.",
+      "Physically accurate reflection in the eyes showing a real softbox light."
+    ],
+    "confidence": 5,
+    "hint": "Zoom in on details like earlobes, iris reflections, and skin pores to find imperfections."
+  },
+  {
+    "id": 6,
+    "type": "image",
+    "difficulty": "medium",
+    "title": "Futuristic Neon Cyberpunk Street",
+    "content": "https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?auto=format&fit=crop&w=800&q=80",
+    "answer": "Human",
+    "explanation": "This image is a real, long-exposure photograph taken in a dense neon-lit city center (Tokyo). The text on the signs consists of readable Japanese characters without AI gibberish, light trails follow exact physical trajectories, and lens distortion matches standard camera optics.",
+    "clues": [
+      "Perfect, meaningful text on store signs without warped typography.",
+      "Physically coherent light trails from moving traffic.",
+      "Realistic lens flare and sensor-level chromatic aberration."
+    ],
+    "confidence": 12,
+    "hint": "Check the neon signs closely. Can you read the letters, or are they warped and abstract?"
+  },
+  {
+    "id": 7,
+    "type": "artwork",
+    "difficulty": "medium",
+    "title": "Oil Painting of a Quiet Harbor",
+    "content": "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80",
+    "answer": "Human",
+    "explanation": "This abstract artwork was painted by a human. The canvas texture shows natural impasto paint ridges where paint overlaps and dries at varying heights, and there is a visible artist signature in the lower right corner, with minor pigment separation.",
+    "clues": [
+      "Varying paint thickness (impasto) showing real physical layers.",
+      "Natural pigment separation and minor dust particles embedded in the dry paint.",
+      "Logical but imperfect paint splatter patterns."
+    ],
+    "confidence": 18,
+    "hint": "Look for 3D textures, canvas weaving, or inconsistent drying patterns in the oil paint."
+  },
+  {
+    "id": 8,
+    "type": "artwork",
+    "difficulty": "hard",
+    "title": "Surrealist Clock in the Desert",
+    "content": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    "answer": "Human",
+    "explanation": "This landscape is a high-resolution photograph of Yosemite Valley by a human photographer. The geological formations (El Capitan) correspond to real Earth locations, the vegetation distribution matches local ecological patterns, and the shadows are consistent with solar elevation.",
+    "clues": [
+      "Geographically accurate rock formations matching real-world locations.",
+      "Consistent atmospheric haze and physical lighting angles.",
+      "Realistic distribution of native pine trees."
+    ],
+    "confidence": 10,
+    "hint": "Does this landmark exist in real life, or is it a dreamlike synthesis?"
+  },
+  {
+    "id": 9,
+    "type": "voice",
+    "difficulty": "easy",
+    "title": "Technical Support Greeting",
+    "content": "Thank you for calling Technical Support. Your call is very important to us. Please hold while we connect you to the next available agent.",
+    "answer": "AI",
+    "explanation": "This message is typical of automated Interactive Voice Response (IVR) text-to-speech engines. The phrasing is generic, standard, and delivered in a perfectly consistent monotone rhythm.",
+    "clues": [
+      "Common corporate script widely used for automated voice synthesis.",
+      "Lack of breathing breaks or natural speech pauses.",
+      "Perfect, computerized pronunciation of technical words."
+    ],
+    "confidence": 95,
+    "hint": "Listen (or read) for robotic cadence, lack of breathing sounds, and standard corporate phrasing."
+  },
+  {
+    "id": 10,
+    "type": "voice",
+    "difficulty": "medium",
+    "title": "Podcast Host Introduction",
+    "content": "Hey guys, welcome back to the channel. Today we're diving deep into... well, honestly, a pretty crazy topic that I've been reading about all week.",
+    "answer": "Human",
+    "explanation": "The text contains conversational filler words ('hey guys', 'well, honestly', 'pretty crazy') and conversational pauses ('... well') which reflect human speech production dynamics.",
+    "clues": [
+      "Filler words like 'well' and 'hey guys' that humans use to pace themselves.",
+      "Non-standard sentence structure and trailing thoughts.",
+      "Highly conversational, unscripted tone."
+    ],
+    "confidence": 15,
+    "hint": "Identify filler words, pauses, and casual colloquialisms."
+  },
+  {
+    "id": 11,
+    "type": "text",
+    "difficulty": "hard",
+    "title": "Philosophical Essay Excerpt",
+    "content": "The manifestation of conscious experience exists not as a substance, but as a relational framework. It is through the continuous feedback loops between sensory transduction and memory synthesis that the illusion of the 'self' is generated. In this sense, subjectivity is a narrative construct, constantly rewritten by immediate perceptual demands.",
+    "answer": "AI",
+    "explanation": "This is a typical AI-generated philosophical snippet. It has a high density of academic jargon ('sensory transduction', 'memory synthesis', 'relational framework') and presents complex ideas in a very neat, clean, well-punctuated, and structured manner without the struggle or stylistic idiosyncrasies of a real academic writer.",
+    "clues": [
+      "Perfect grammatical balance with complex academic terminology.",
+      "Polished, authoritative tone summarizing complex topics with ease.",
+      "Absence of historical philosophical references or personal polemics."
+    ],
+    "confidence": 85,
+    "hint": "Analyze whether the writing feels like a student/academic trying to make a point, or an AI writing a summary of academic prose."
+  },
+  {
+    "id": 12,
+    "type": "text",
+    "difficulty": "impossible",
+    "title": "Historical Diary Entry",
+    "content": "June 14. Still hot. The well is low, and the cows are restless. Arthur spent the morning mending the north fence where the oak branch fell during Friday's blow. His wrist is still stiff from the spring plow, but he won't hear of leaving it. I boiled the last of the salted ham with some greens. It was stringy, but we ate it. We need rain soon, or the corn won't make a stand.",
+    "answer": "Human",
+    "explanation": "This diary entry is written by a human. It features period-specific, localized farming terminology ('Friday's blow' for storm, corn 'making a stand') and captures mundane, highly specific domestic details ('Arthur's wrist from the spring plow', 'salted ham was stringy') in a sparse, realistic historical voice.",
+    "clues": [
+      "Very specific, localized historical idioms ('Friday's blow', 'corn won't make a stand').",
+      "Mundane domestic details that don't serve a direct narrative focus.",
+      "Sparse, disjointed sentence style typical of real historical diaries."
+    ],
+    "confidence": 25,
+    "hint": "Look for archaic phrasing, specific agricultural jargon, and simple, diary-style sentence flows."
+  },
+  {
+    "id": 13,
+    "type": "code",
+    "difficulty": "medium",
+    "title": "REST API Controller for User Registration",
+    "content": "const express = require('express');\nconst router = express.Router();\nconst User = require('../models/User');\n\n// Create user\nrouter.post('/register', async (req, res) => {\n  try {\n    const { email, password } = req.body;\n    if (!email || !password) {\n      return res.status(400).json({ error: 'Missing credentials' });\n    }\n    const userExists = await User.findOne({ email });\n    if (userExists) {\n      return res.status(400).json({ error: 'User already exists' });\n    }\n    const user = new User({ email, password });\n    await user.save();\n    res.status(201).json({ message: 'User created', userId: user._id });\n  } catch (err) {\n    res.status(500).json({ error: 'Internal Server Error' });\n  }\n});",
+    "answer": "AI",
+    "explanation": "This controller is standard Mongoose boilerplate generated by AI tools. It handles basic register verification, checking email/password presence, checking if user exists, saving the user, and returning a generic JSON object with a generic catch block. There are no custom logs, tracing parameters, or production-grade password hashing (like bcrypt) that a professional human would include.",
+    "clues": [
+      "Standard template boilerplate with generic error handling.",
+      "Absence of key security practices (like bcrypt hashing) in a registration endpoint.",
+      "Super generic responses ('Internal Server Error', 'User created')."
+    ],
+    "confidence": 80,
+    "hint": "Analyze whether the code is secure for production or is just simple, clean helper boilerplate."
+  },
+  {
+    "id": 14,
+    "type": "code",
+    "difficulty": "impossible",
+    "title": "Custom Memory Allocator in C++",
+    "content": "void* Arena::Alloc(size_t size) {\n    // align to 8-bytes\n    size = (size + 7) & ~7;\n    if (curr + size > end) {\n        // run out of memory, get new chunk\n        Grow(size);\n    }\n    void* ptr = curr;\n    curr += size;\n    return ptr;\n}",
+    "answer": "Human",
+    "explanation": "This is a real custom arena memory allocator snippet written by a human engine programmer. It uses bitwise operations for 8-byte alignment (`(size + 7) & ~7`), tracks memory using simple pointers (`curr`, `end`), and has concise, informal lowercase comments. It's direct, practical, and highly optimized.",
+    "clues": [
+      "Low-level bitwise tricks for fast memory alignment.",
+      "Minimalist but functional code structure.",
+      "Informal, short comments typical of system programmers."
+    ],
+    "confidence": 30,
+    "hint": "Look at the low-level bitwise operations and comment styles. Does it look like a textbook definition or raw production code?"
+  },
+  {
+    "id": 15,
+    "type": "image",
+    "difficulty": "hard",
+    "title": "Detailed Glass Vase on Wooden Table",
+    "content": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "answer": "AI",
+    "explanation": "This is an AI-generated image (Stable Diffusion). While the lighting looks stunning, looking closely at the reflections on the glass vase reveals that they do not match the environment's window positions, the wood grain patterns on the table merge together abnormally, and there are subtle floating dust particles that don't obey gravity.",
+    "clues": [
+      "Physically incoherent reflections on the glass bottle.",
+      "Wood grain lines that wrap or fade into surreal, impossible loops.",
+      "Unnatural floating dust specs that lack depth of field matching."
+    ],
+    "confidence": 89,
+    "hint": "Inspect the reflections and lines. Do they align logically with the background light sources?"
+  },
+  {
+    "id": 16,
+    "type": "image",
+    "difficulty": "impossible",
+    "title": "Cat Sitting on a Window Sill",
+    "content": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80",
+    "answer": "Human",
+    "explanation": "This photo of a cat is shot by a human photographer. The cat's whiskers have varying lengths, thickness, and grow from distinct follicles. The window frame shows normal dust and age wear, and the reflection of the cat's fur on the window pane has physical optical accuracy.",
+    "clues": [
+      "Perfect follicle growth points and variable thickness of whiskers.",
+      "Realistic dust, scratching, and texture on the old window pane.",
+      "Accurate glass refraction and secondary reflection."
+    ],
+    "confidence": 4,
+    "hint": "Check micro-details like whisker growth patterns and tiny scratches on the glass or window frame."
+  },
+  {
+    "id": 17,
+    "type": "artwork",
+    "difficulty": "easy",
+    "title": "Watercolor Painting of Paris",
+    "content": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+    "answer": "Human",
+    "explanation": "This is a real photograph of the Eiffel Tower, color-graded by a human. The structural iron lattice exhibits exact historic structural engineering blueprints, perspective convergence is physically accurate, and real human crowds can be seen with individual features and unique clothing.",
+    "clues": [
+      "Structurally accurate architectural truss system.",
+      "Accurate atmospheric perspective.",
+      "Clear, detailed, non-warped people in the background."
+    ],
+    "confidence": 5,
+    "hint": "Look at the background elements. Are the buildings and structural lattices perfectly straight and detailed?"
+  },
+  {
+    "id": 18,
+    "type": "artwork",
+    "difficulty": "impossible",
+    "title": "Digital Art - Cyberpunk Ninja",
+    "content": "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80",
+    "answer": "AI",
+    "explanation": "This is an AI-generated digital painting. At first glance it is spectacular, but checking the ninja's weapons reveals they merge directly into their arms, the suit armor plates have asymmetrical panel lines, and the lighting highlights do not match the main neon light source.",
+    "clues": [
+      "Armor plating seams that don't match on the left vs right side.",
+      "Weapons or straps that morph directly into the character's body parts.",
+      "Lighting highlights that appear on surfaces facing away from light sources."
+    ],
+    "confidence": 91,
+    "hint": "Analyze joints, straps, and seams. Do they connect together sensibly, or do they morph into each other?"
+  },
+  {
+    "id": 19,
+    "type": "voice",
+    "difficulty": "hard",
+    "title": "A Speech on Climate Change",
+    "content": "We must act now. Climate change isn't a problem for the next generation, it's our reality today. Ocean levels are rising, and weather patterns are shifting rapidly. Every degree matters.",
+    "answer": "AI",
+    "explanation": "This script is generated by modern AI and read by a high-end neural text-to-speech model. Although it features high-quality pitch modulation and synthetic breathing, it still lacks emotional phrasing micro-adjustments or the slight vocal strain a human speaker would exhibit when speaking about an urgent crisis.",
+    "clues": [
+      "Perfect pronunciation with zero slurring or natural dialect elements.",
+      "Regularly spaced, artificial inhalation sounds.",
+      "Flat emotional delivery despite the urgent content of the text."
+    ],
+    "confidence": 87,
+    "hint": "Does the speaker show genuine urgency, vocal strain, or natural imperfections, or is it overly smooth?"
+  },
+  {
+    "id": 20,
+    "type": "voice",
+    "difficulty": "impossible",
+    "title": "Casual Greeting from a Friend",
+    "content": "Oh, hey! Sorry, I didn't see you there. I was just... checking my messages. Did you want to grab lunch or something?",
+    "answer": "Human",
+    "explanation": "This snippet has typical spoken hesitation ('Oh, hey! Sorry... I was just...'), informal phrasing ('grab lunch or something'), and natural stutters that reflect real-time human cognitive processing during speaking.",
+    "clues": [
+      "Natural hesitation ('just...') and self-correction.",
+      "Authentic speech pauses that occur between syntactic phrases.",
+      "Casual phrasing and conversational register."
+    ],
+    "confidence": 10,
+    "hint": "Listen for natural hesitation, stutters, and typical human conversation pacing."
+  }
+]

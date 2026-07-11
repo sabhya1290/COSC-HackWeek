@@ -112,6 +112,14 @@ This repository contains the projects developed during the hackathon.
 
 ---
 
+### 🕵️‍♂️ Human vs AI Detector Game
+ **[Human vs AI Detector](file:///d:/project/COSC%20Hackweek/human-vs-ai-detector/README.md)**
+   - **Stack**: React (Vite), Node.js, Express, Tailwind CSS, Framer Motion, and Web Audio/Speech APIs.
+   - **Key Features**: 10-round campaign mode with glassmorphism layout, programmatic sound effects synthesizer, voice clip play support with pitch-rate adaptation, local pass-and-play VS duel mode, daily challenge logic, hint indicators, and admin telemetry tools.
+   - **Setup required**: Run the server and client concurrently from the root directory using npm scripts as described in its README.
+
+---
+
 ### Other Projects
 * **[CGPA Calculator](file:///d:/project/COSC%20Hackweek/CGPA%20Calculator/)**: Calculate and track your semester grades.
 * **[Rock Paper Scissor](file:///d:/project/COSC%20Hackweek/Rock%20Paper%20Scissor/)**: Classic interactive Rock-Paper-Scissors game.

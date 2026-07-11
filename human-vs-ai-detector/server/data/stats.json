@@ -1,0 +1,13 @@
+{
+  "gamesPlayed": 0,
+  "totalAnswers": 24,
+  "correctAnswers": 15,
+  "favoriteCategory": "Image",
+  "categoryCounts": {
+    "text": 5,
+    "code": 4,
+    "image": 9,
+    "artwork": 4,
+    "voice": 2
+  }
+}

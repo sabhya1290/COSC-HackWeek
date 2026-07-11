@@ -1,0 +1,28 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Env & secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Sub-folder modules/builds
+client/node_modules/
+client/dist/
+server/node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db

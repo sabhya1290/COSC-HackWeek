@@ -41,10 +41,49 @@ ESTIMATED_QUALITY_LOSS: ${metrics.estimatedQualityLoss}
     const clone = element.cloneNode(true);
     clone.classList.add('pdf-print-wrapper');
     
-    // Convert format badge to printable format
+    // Recursively clean theme/color classes to prevent oklch tailwind v4 color space parsing crash in html2canvas
+    const cleanStyles = (el) => {
+      const classesToRemove = [];
+      el.classList.forEach(cls => {
+        if (
+          cls.startsWith('text-') || 
+          cls.startsWith('bg-') || 
+          cls.startsWith('border-') || 
+          cls.startsWith('shadow-') || 
+          cls.startsWith('neon-') ||
+          cls.includes('glass-')
+        ) {
+          classesToRemove.push(cls);
+        }
+      });
+      classesToRemove.forEach(cls => el.classList.remove(cls));
+      
+      // Inline clean styling variables
+      if (el.tagName === 'H3' || el.tagName === 'H4') {
+        el.style.color = '#0f172a';
+        el.style.fontWeight = 'bold';
+      } else if (el.tagName === 'P' || el.tagName === 'SPAN') {
+        el.style.color = '#334155';
+      }
+      el.style.textShadow = 'none';
+      el.style.boxShadow = 'none';
+      el.style.borderColor = '#e2e8f0';
+
+      Array.from(el.children).forEach(child => cleanStyles(child));
+    };
+
+    cleanStyles(clone);
+
+    // Style the badge manually on the print template
     const formatBadge = clone.querySelector('.format-badge-target');
     if (formatBadge) {
-      formatBadge.classList.add('badge');
+      formatBadge.style.backgroundColor = '#f1f5f9';
+      formatBadge.style.color = '#0f172a';
+      formatBadge.style.padding = '4px 8px';
+      formatBadge.style.borderRadius = '4px';
+      formatBadge.style.border = '1px solid #cbd5e1';
+      formatBadge.style.fontWeight = 'bold';
+      formatBadge.style.fontSize = '10px';
     }
 
     const opt = {
@@ -68,7 +107,7 @@ ESTIMATED_QUALITY_LOSS: ${metrics.estimatedQualityLoss}
             <h3 className="text-md font-bold tracking-wide text-cyan-400 dark:text-cyan-400 uppercase">SYS_OPTIMIZATION_METRICS</h3>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase mt-0.5">FILE: {filename}</p>
           </div>
-          <span className="format-badge-target px-2.5 py-1 text-[10px] font-black text-slate-900 dark:text-slate-950 bg-cyan-400 rounded">
+          <span className="format-badge-target px-2.5 py-1 text-[10px] font-black text-slate-900 dark:text-slate-955 bg-cyan-400 rounded">
             {metrics.format}
           </span>
         </div>
@@ -77,7 +116,7 @@ ESTIMATED_QUALITY_LOSS: ${metrics.estimatedQualityLoss}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="p-4 bg-slate-950/60 dark:bg-slate-900/40 rounded border border-slate-900 dark:border-slate-800/50">
             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">RAW_FILE_SIZE</p>
-            <p className="text-lg font-bold text-slate-350 dark:text-slate-200 mt-1">{formatBytes(metrics.originalSize)}</p>
+            <p className="text-lg font-bold text-slate-355 dark:text-slate-200 mt-1">{formatBytes(metrics.originalSize)}</p>
           </div>
 
           <div className="p-4 bg-cyan-950/20 dark:bg-cyan-950/10 rounded border border-cyan-500/30 dark:border-cyan-500/20 neon-glow-cyan">
@@ -92,18 +131,18 @@ ESTIMATED_QUALITY_LOSS: ${metrics.estimatedQualityLoss}
 
           <div className="p-4 bg-slate-950/60 dark:bg-slate-900/40 rounded border border-slate-900 dark:border-slate-800/50">
             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">COMP_RATIO</p>
-            <p className="text-lg font-bold text-slate-350 dark:text-slate-200 mt-1">{metrics.ratio}</p>
+            <p className="text-lg font-bold text-slate-355 dark:text-slate-200 mt-1">{metrics.ratio}</p>
           </div>
 
           <div className="p-4 bg-slate-950/60 dark:bg-slate-900/40 rounded border border-slate-900 dark:border-slate-800/50">
             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">RESOLUTION</p>
-            <p className="text-xs font-bold text-slate-350 dark:text-slate-200 mt-1.5">{metrics.dimensions.compressed}</p>
-            <p className="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase mt-0.5">WAS: {metrics.dimensions.original}</p>
+            <p className="text-xs font-bold text-slate-355 dark:text-slate-200 mt-1.5">{metrics.dimensions.compressed}</p>
+            <p className="text-[9px] text-slate-500 dark:text-slate-404 font-bold uppercase mt-0.5">WAS: {metrics.dimensions.original}</p>
           </div>
 
           <div className="p-4 bg-slate-950/60 dark:bg-slate-900/40 rounded border border-slate-900 dark:border-slate-800/50 col-span-2 lg:col-span-1">
             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">TIME_ELAPSED</p>
-            <p className="text-lg font-bold text-slate-350 dark:text-slate-200 mt-1">{metrics.timeTaken} ms</p>
+            <p className="text-lg font-bold text-slate-355 dark:text-slate-200 mt-1">{metrics.timeTaken} ms</p>
           </div>
         </div>
 
@@ -129,7 +168,7 @@ ESTIMATED_QUALITY_LOSS: ${metrics.estimatedQualityLoss}
               </div>
               <div className="flex justify-between p-2 bg-slate-950/40 dark:bg-slate-900/20 rounded border border-slate-900 dark:border-slate-800/30">
                 <span className="text-slate-500 uppercase">DENSITY</span>
-                <span className="text-slate-350 dark:text-slate-300">{metrics.metadata.density} DPI</span>
+                <span className="text-slate-355 dark:text-slate-300">{metrics.metadata.density} DPI</span>
               </div>
             </div>
           </div>
@@ -141,7 +180,7 @@ ESTIMATED_QUALITY_LOSS: ${metrics.estimatedQualityLoss}
           <div className="text-[10px] font-bold uppercase tracking-wide">
             <span className="text-slate-400 dark:text-slate-300">ESTIMATED_SYS_QUALITY_LOSS: </span>
             <span className="text-cyan-400">{metrics.estimatedQualityLoss}</span>
-            <span className="text-slate-500 dark:text-slate-400 block text-[8px] mt-0.5 lowercase font-medium">Dynamic optimization algorithm executed. Pixel ratios aligned.</span>
+            <span className="text-slate-550 dark:text-slate-400 block text-[8px] mt-0.5 lowercase font-medium">Dynamic optimization algorithm executed. Pixel ratios aligned.</span>
           </div>
         </div>
       </div>
